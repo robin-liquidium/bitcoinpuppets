@@ -12,6 +12,7 @@ Bitcoin Puppets is a community-led hub for the Bitcoin Puppets Ordinals collecti
 - OpenNext Cloudflare adapter (`@opennextjs/cloudflare`)
 - Cloudflare Workers + `wrangler.jsonc`
 - `next/image` for images (Cloudflare Images binding enabled via `wrangler.jsonc`)
+- pnpm for package management
 
 ## Development Commands
 
@@ -20,12 +21,21 @@ Bitcoin Puppets is a community-led hub for the Bitcoin Puppets Ordinals collecti
 - `pnpm deploy` — Build + deploy to Cloudflare.
 - `cloudflared tunnel --url http://localhost:3000` – to test dev on mobile
 
+## Production
+
+- Site URL: https://bitcoinpuppets.community/
+
 ## Style Guide
 
 - De-optimized retro aesthetic: Comic Sans (system fallback), heavy borders, pixel shadows, loud colors, and slightly chaotic layout.
 - Keep code clean and consistent even if the visuals are intentionally messy.
 - Prefer bold blocks, chunky buttons, and retro desktop panels.
 - Disable antialiasing: no font smoothing, and keep images pixelated.
+
+## Content & Data
+
+- Gallery search uses a prebuilt static index in `src/data/collections/*.json` to avoid Magic Eden rate limits.
+- Refresh the index with: `MAGIC_EDEN_API_KEY=... node scripts/build-magiceden-index.mjs`.
 
 ## Context (Lore)
 
