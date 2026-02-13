@@ -48,5 +48,6 @@ next-env.d.ts
 .wrangler
 .dev.vars*
 
+.codex/
 
 !.dev.vars.example
