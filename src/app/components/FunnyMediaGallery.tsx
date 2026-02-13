@@ -7,6 +7,11 @@ type FunnyMediaGalleryProps = {
   sources: string[];
 };
 
+const SKELETON_KEYS = Array.from(
+  { length: 10 },
+  (_, position) => `placeholder-${position}`,
+);
+
 export default function FunnyMediaGallery({ sources }: FunnyMediaGalleryProps) {
   const [selectedSrc, setSelectedSrc] = useState<string | null>(null);
   const [isActive, setIsActive] = useState(false);
@@ -76,8 +81,8 @@ export default function FunnyMediaGallery({ sources }: FunnyMediaGalleryProps) {
           </div>
         ) : (
           <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-            {Array.from({ length: 10 }).map((_, index) => (
-              <div key={index} className="pixel-border bg-white/80 p-2">
+            {SKELETON_KEYS.map((key) => (
+              <div key={key} className="pixel-border bg-white/80 p-2">
                 <div className="aspect-square w-full bg-black/10" />
               </div>
             ))}
@@ -86,14 +91,14 @@ export default function FunnyMediaGallery({ sources }: FunnyMediaGalleryProps) {
       </div>
 
       {selectedSrc ? (
-        <div
-          className="fixed inset-0 z-[80] flex items-center justify-center bg-black/70 px-4 py-8"
-          onClick={() => setSelectedSrc(null)}
-        >
-          <div
-            className="pixel-border flex max-h-[90vh] w-full max-w-[92vw] flex-col overflow-y-auto bg-white/95 p-4 text-black"
-            onClick={(event) => event.stopPropagation()}
-          >
+        <div className="fixed inset-0 z-[80] flex items-center justify-center px-4 py-8">
+          <button
+            type="button"
+            className="absolute inset-0 bg-black/70"
+            onClick={() => setSelectedSrc(null)}
+            aria-label="Close media viewer"
+          />
+          <div className="pixel-border relative z-10 flex max-h-[90vh] w-full max-w-[92vw] flex-col overflow-y-auto bg-white/95 p-4 text-black">
             <div className="window-titlebar mb-3 flex items-center justify-between px-3 py-2 text-sm font-bold uppercase">
               <span>Funny Pictures and Videos</span>
               <button

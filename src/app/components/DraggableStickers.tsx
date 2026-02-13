@@ -1,8 +1,8 @@
 "use client";
 
-import { useDraggableStickers } from "./stickers/useDraggableStickers";
-import { StickerItem } from "./stickers/StickerItem";
 import { DebugOverlay } from "./stickers/DebugOverlay";
+import { StickerItem } from "./stickers/StickerItem";
+import { useDraggableStickers } from "./stickers/useDraggableStickers";
 
 export default function DraggableStickers() {
   const {

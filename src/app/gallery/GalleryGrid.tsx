@@ -101,14 +101,14 @@ export default function GalleryGrid({
       </div>
 
       {selected ? (
-        <div
-          className="fixed inset-0 z-[80] flex items-center justify-center bg-black/70 px-4 py-8"
-          onClick={() => setSelected(null)}
-        >
-          <div
-            className="pixel-border flex max-h-[90vh] w-full max-w-[92vw] flex-col overflow-y-auto bg-white/95 p-4 text-black sm:max-w-[640px]"
-            onClick={(event) => event.stopPropagation()}
-          >
+        <div className="fixed inset-0 z-[80] flex items-center justify-center px-4 py-8">
+          <button
+            type="button"
+            className="absolute inset-0 bg-black/70"
+            onClick={() => setSelected(null)}
+            aria-label="Close gallery item details"
+          />
+          <div className="pixel-border relative z-10 flex max-h-[90vh] w-full max-w-[92vw] flex-col overflow-y-auto bg-white/95 p-4 text-black sm:max-w-[640px]">
             <div className="window-titlebar mb-3 flex items-center justify-between px-3 py-2 text-sm font-bold uppercase">
               <span>
                 {collectionLabel} —{" "}

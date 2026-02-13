@@ -57,6 +57,7 @@ export default function CursedInscriptionsSection() {
           ))}
           {!isExpanded && cursedInscriptions.length > initialCount && (
             <button
+              type="button"
               onClick={() => setIsExpanded(true)}
               className="pixel-border bg-white px-3 py-2 text-xs font-bold uppercase text-black hover:-translate-y-0.5 hover:shadow-press transition cursor-pointer"
             >
@@ -65,6 +66,7 @@ export default function CursedInscriptionsSection() {
           )}
           {isExpanded && (
             <button
+              type="button"
               onClick={() => setIsExpanded(false)}
               className="pixel-border bg-white px-3 py-2 text-xs font-bold uppercase text-black hover:-translate-y-0.5 hover:shadow-press transition cursor-pointer"
             >

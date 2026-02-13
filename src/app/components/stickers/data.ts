@@ -1,4 +1,4 @@
-import { Sticker } from "./types";
+import type { Sticker } from "./types";
 
 export const initialStickers: Sticker[] = [
   {

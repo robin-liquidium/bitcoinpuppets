@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { isMagicEdenSort } from "@/lib/magicEden";
+import { DEFAULT_SORT, SITE_NAME, SOCIAL_IMAGE } from "./constants";
 import GalleryControls from "./GalleryControls";
 import GalleryGrid from "./GalleryGrid";
 import GalleryPagination from "./GalleryPagination";
-import { DEFAULT_SORT, SITE_NAME, SOCIAL_IMAGE } from "./constants";
-import { getGalleryData } from "./service";
-import { GalleryMetadataProps, GalleryPageProps } from "./types";
-import { getParam, resolveCollection } from "./utils"; // Re-export isMagicEdenSort from utils if needed OR import from lib
-import { isMagicEdenSort } from "@/lib/magicEden";
-
 import LiquidiumGallery from "./LiquidiumGallery";
+import { getGalleryData } from "./service";
+import type { GalleryMetadataProps, GalleryPageProps } from "./types";
+import { getParam, resolveCollection } from "./utils"; // Re-export isMagicEdenSort from utils if needed OR import from lib
 
 export default async function GalleryPage({ searchParams }: GalleryPageProps) {
   const resolvedSearchParams = searchParams ? await searchParams : undefined;

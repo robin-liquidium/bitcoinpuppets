@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const LINKS = [
   { name: "X", href: "https://x.com/BitcoinPuppets" },
@@ -66,6 +66,7 @@ export default function HamburgerMenu() {
   return (
     <div className="hamburger-container fixed top-6 right-4 z-[100]">
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
         className="pixel-border bg-white p-1.5 hover:bg-gray-100 transition-colors shadow-none active:translate-y-0.5"
         aria-label="Menu"

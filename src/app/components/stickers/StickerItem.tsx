@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Sticker } from "./types";
+import type { Sticker } from "./types";
 
 interface StickerItemProps {
   sticker: Sticker;

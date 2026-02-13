@@ -114,8 +114,14 @@ export default function GalleryPagination({
         )}
 
         <form onSubmit={handleJump} className="flex items-center gap-2">
-          <label className="text-[11px] font-bold uppercase">Jump to</label>
+          <label
+            htmlFor="gallery-page-jump"
+            className="text-[11px] font-bold uppercase"
+          >
+            Jump to
+          </label>
           <input
+            id="gallery-page-jump"
             type="number"
             min={1}
             inputMode="numeric"

@@ -1,3 +1,1 @@
-pnpm lint-staged
-pnpm typecheck
-
+bun run lint-staged

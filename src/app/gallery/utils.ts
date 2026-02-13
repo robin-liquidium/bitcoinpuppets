@@ -1,5 +1,5 @@
 import { COLLECTIONS, DEFAULT_COLLECTION, DEFAULT_PAGE } from "./constants";
-import { SearchParams } from "./types";
+import type { SearchParams } from "./types";
 
 export function getParam(searchParams: SearchParams | undefined, key: string) {
   const value = searchParams?.[key];

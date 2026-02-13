@@ -1,4 +1,4 @@
-import { CursedInscription, FaqItem, LinkItem } from "./types";
+import type { CursedInscription, FaqItem, LinkItem } from "./types";
 
 export const links: LinkItem[] = [
   {

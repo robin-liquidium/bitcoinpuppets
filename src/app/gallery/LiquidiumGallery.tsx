@@ -1,7 +1,7 @@
 "use client";
 
-import { DURATIONS, LiquidiumLoan } from "@/lib/liquidium";
-import { useMemo, useState, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { DURATIONS, type LiquidiumLoan } from "@/lib/liquidium";
 
 interface LiquidiumGalleryProps {
   loans: LiquidiumLoan[];
@@ -23,7 +23,7 @@ function formatDate(dateStr: string) {
 function getTimeRemaining(acceptedDate: string, durationDays: number) {
   const expiry =
     new Date(acceptedDate).getTime() + durationDays * 24 * 60 * 60 * 1000;
-  const now = new Date().getTime();
+  const now = Date.now();
   const diff = expiry - now;
 
   if (diff <= 0) return "Expired";
@@ -98,6 +98,7 @@ export default function LiquidiumGallery({
           <span className="text-xs font-bold uppercase">Filter Duration:</span>
           <div className="flex gap-1">
             <button
+              type="button"
               onClick={() => setDurationFilter(null)}
               className={`pixel-border px-2 py-1 text-[10px] font-bold uppercase transition ${
                 !durationFilter
@@ -110,6 +111,7 @@ export default function LiquidiumGallery({
             {DURATIONS.map((d) => (
               <button
                 key={d}
+                type="button"
                 onClick={() => setDurationFilter(d)}
                 className={`pixel-border px-2 py-1 text-[10px] font-bold uppercase transition ${
                   durationFilter === d

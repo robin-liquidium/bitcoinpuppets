@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { links } from "../data";
 
@@ -24,11 +25,13 @@ export default function QuickLinksSection() {
             >
               {link.iconUrl && (
                 <div className="relative h-10 w-10 shrink-0">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     src={link.iconUrl}
                     alt={`${link.label} icon`}
+                    width={40}
+                    height={40}
                     className="h-full w-full object-cover"
+                    unoptimized
                   />
                 </div>
               )}

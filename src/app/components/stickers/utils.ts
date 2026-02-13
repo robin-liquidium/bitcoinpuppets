@@ -3,7 +3,7 @@ import {
   STICKER_MAX_SCALE,
   STICKER_MOBILE_BREAKPOINT,
 } from "./constants";
-import { Sticker } from "./types";
+import type { Sticker } from "./types";
 
 export const clamp = (value: number, min: number, max: number) =>
   Math.min(Math.max(value, min), max);

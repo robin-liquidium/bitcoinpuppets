@@ -6,13 +6,13 @@ import {
   isMagicEdenSort,
 } from "@/lib/magicEden";
 import {
-  COLLECTIONS,
   COLLECTION_TOTALS,
+  COLLECTIONS,
   DEFAULT_SORT,
   PAGE_SIZE,
   SEARCH_MAX_MATCHES,
 } from "./constants";
-import { SearchParams } from "./types";
+import type { SearchParams } from "./types";
 import {
   buildBaseQuery,
   extractSearchNumber,

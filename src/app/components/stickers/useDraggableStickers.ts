@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Sticker } from "./types";
 import { initialStickers } from "./data";
+import type { Sticker } from "./types";
 import {
   buildResponsiveStickers,
   clampStickerX,

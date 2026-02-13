@@ -9,12 +9,13 @@ A community-led hub for the Bitcoin Puppets Ordinals collection. This site embra
 - Next.js (App Router)
 - Tailwind CSS
 - OpenNext adapter for Cloudflare Workers
-- pnpm
+- Bun
 
 ## Local Development
 
 ```bash
-pnpm dev
+bun install
+bun run dev
 ```
 
 Open http://localhost:3000.
@@ -24,7 +25,7 @@ Open http://localhost:3000.
 Run the site using the Cloudflare runtime to catch Workers-specific issues early:
 
 ```bash
-pnpm preview
+bun run preview
 ```
 
 ## Content Context

@@ -113,11 +113,15 @@ export default function GalleryControls({
               updateParams({ q: searchInput.trim() || undefined });
             }}
           >
-            <label className="text-xs font-bold uppercase">
+            <label
+              htmlFor="gallery-search"
+              className="text-xs font-bold uppercase"
+            >
               Search (token, inscription, name)
             </label>
             <div className="flex gap-2">
               <input
+                id="gallery-search"
                 type="text"
                 value={searchInput}
                 onChange={(event) => setSearchInput(event.target.value)}

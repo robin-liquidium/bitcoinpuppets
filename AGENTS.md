@@ -6,44 +6,44 @@ Bitcoin Puppets is a community-led hub for the Bitcoin Puppets Ordinals collecti
 
 ## Tech Stack
 
-- Next.js 15 (App Router)
+- Next.js 16 (App Router)
 - React 19
 - TypeScript (strict)
 - Tailwind CSS v4
 - OpenNext Cloudflare adapter (`@opennextjs/cloudflare`)
 - Cloudflare Workers + `wrangler.jsonc`
 - `next/image` for images (Cloudflare Images binding enabled via `wrangler.jsonc`)
-- pnpm for package management
+- Bun for package management
 
 ## Build, Lint, Test Commands
 
 ### Core Commands
 
-- `pnpm dev` — Next.js dev server (Turbopack).
-- `pnpm build` — Production build.
-- `pnpm start` — Serve the production build locally.
-- `pnpm preview` — OpenNext build + Cloudflare `workerd` preview.
-- `pnpm deploy` — OpenNext build + deploy to Cloudflare.
-- `pnpm upload` — OpenNext build + upload without deploy.
+- `bun run dev` — Next.js dev server (Turbopack).
+- `bun run build` — Production build.
+- `bun run start` — Serve the production build locally.
+- `bun run preview` — OpenNext build + Cloudflare `workerd` preview.
+- `bun run deploy` — OpenNext build + deploy to Cloudflare.
+- `bun run upload` — OpenNext build + upload without deploy.
 
 ### Linting, Formatting, Type Checks
 
-- `pnpm lint` — ESLint (Next.js core-web-vitals + TypeScript rules).
-- `pnpm format` — Prettier across repo.
-- `pnpm typecheck` — `tsc --noEmit` strict type check.
-- `pnpm secretlint` — Secretlint scan across the repo.
-- `pnpm cf-typegen` — Generate Cloudflare environment types to `cloudflare-env.d.ts`.
+- `bun run lint` — Biome code quality checks (lint + formatting diagnostics).
+- `bun run format` — Biome formatter across the repo.
+- `bun run typecheck` — `tsc --noEmit` strict type check.
+- `bun run secretlint` — Secretlint scan across the repo.
+- `bun run cf-typegen` — Generate Cloudflare environment types to `cloudflare-env.d.ts`.
 
 ### Single-File / Targeted Runs
 
-- `pnpm lint -- path/to/file.ts` — Lint a single file with ESLint.
-- `pnpm format -- path/to/file.tsx` — Format a single file with Prettier.
-- `pnpm typecheck` — No per-file target configured; run the full project.
+- `bunx @biomejs/biome check path/to/file.tsx` — Check/lint a single file with Biome.
+- `bunx @biomejs/biome format --write path/to/file.tsx` — Format a single file with Biome.
+- `bun run typecheck` — No per-file target configured; run the full project.
 - **Tests:** No unit test runner is configured in this repo yet.
 
 ### Pre-commit Hooks
 
-- Husky + lint-staged run ESLint fixes and Secretlint on staged files.
+- Husky + lint-staged run Biome fixes and Secretlint on staged files.
 - If lint-staged fails, fix the reported file and re-stage.
 
 ## Runtime & Deployment Notes
@@ -102,8 +102,8 @@ Bitcoin Puppets is a community-led hub for the Bitcoin Puppets Ordinals collecti
 
 ### Formatting
 
-- Prettier defaults (no custom config) are the canonical format.
-- Use double quotes and semicolons (ESLint/Prettier default).
+- Biome defaults (configured in `biome.json`) are the canonical format.
+- Use double quotes and semicolons.
 - Keep trailing commas in multiline objects/arrays.
 
 ### Error Handling & Logging

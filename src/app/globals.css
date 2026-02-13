@@ -89,7 +89,7 @@ html,
 body {
   cursor:
     url("/sym46.avif") 18 10,
-    crosshair !important;
+    crosshair;
   min-height: 100%;
 }
 
@@ -108,7 +108,7 @@ button,
 summary {
   cursor:
     url("/sym46.avif") 18 10,
-    crosshair !important;
+    crosshair;
 }
 
 ::selection {
