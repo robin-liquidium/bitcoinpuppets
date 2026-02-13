@@ -26,26 +26,25 @@
     ]
   },
   "dependencies": {
-    "@opennextjs/cloudflare": "^1.14.7",
-    "next": "15.5.9",
-    "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "@opennextjs/cloudflare": "^1.16.4",
+    "next": "16.1.6",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3",
-    "@secretlint/secretlint-rule-preset-recommend": "^11.2.5",
+    "@secretlint/secretlint-rule-preset-recommend": "^11.3.1",
     "@tailwindcss/postcss": "^4.1.18",
-    "@types/node": "^25.0.3",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/node": "^25.2.3",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
     "eslint": "^9.39.2",
-    "eslint-config-next": "15.5.9",
+    "eslint-config-next": "16.1.6",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
-    "prettier": "^3.7.4",
-    "secretlint": "^11.2.5",
+    "prettier": "^3.8.1",
+    "secretlint": "^11.3.1",
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3",
-    "wrangler": "^4.59.1"
+    "wrangler": "^4.65.0"
   }
 }
