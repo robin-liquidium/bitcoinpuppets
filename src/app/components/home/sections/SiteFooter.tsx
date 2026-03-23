@@ -34,12 +34,12 @@ export default function SiteFooter() {
         </a>
         <span className="mx-2">•</span>
         <a
-          href="https://magiceden.io/ordinals/marketplace/bitcoin-puppets"
+          href="https://www.satflow.com/ordinals/bitcoin-puppets"
           target="_blank"
           rel="noopener noreferrer"
           className="underline"
         >
-          Magic Eden
+          Satflow
         </a>
         <span className="mx-2">•</span>
         <a

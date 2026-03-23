@@ -8,12 +8,6 @@ export const links: LinkItem[] = [
     iconUrl: "/assets/puppet-santa.avif",
   },
   {
-    label: "Magic Eden Marketplace",
-    href: "https://magiceden.io/ordinals/marketplace/bitcoin-puppets",
-    note: "Scroll, trade, vibe.",
-    iconUrl: "https://unavatar.io/twitter/MEonBTC",
-  },
-  {
     label: "Satflow Marketplace",
     href: "https://www.satflow.com/ordinals/bitcoin-puppets",
     note: "Another portal into the puppetverse.",

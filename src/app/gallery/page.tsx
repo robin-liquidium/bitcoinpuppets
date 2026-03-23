@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { isMagicEdenSort } from "@/lib/magicEden";
+import { isOrdinalSort } from "@/lib/ordinals";
 import { DEFAULT_SORT, SITE_NAME, SOCIAL_IMAGE } from "./constants";
 import GalleryControls from "./GalleryControls";
 import GalleryGrid from "./GalleryGrid";
@@ -8,7 +8,25 @@ import GalleryPagination from "./GalleryPagination";
 import LiquidiumGallery from "./LiquidiumGallery";
 import { getGalleryData } from "./service";
 import type { GalleryMetadataProps, GalleryPageProps } from "./types";
-import { getParam, resolveCollection } from "./utils"; // Re-export isMagicEdenSort from utils if needed OR import from lib
+import { getParam, resolveCollection } from "./utils";
+
+/**
+ * Returns the marquee copy for the active gallery collection.
+ */
+function getGalleryMarquee(collection: string) {
+  return collection === "liquidium"
+    ? "bj bj bj ✦ LIQUIDIUM LOANS ✦ WORLD PEACE ONLY ✦ CHAOTIC PIXEL ENERGY ✦ bj bj bj"
+    : "bj bj bj ✦ ORDINALS GALLERY ✦ WORLD PEACE ONLY ✦ CHAOTIC PIXEL ENERGY ✦ bj bj bj";
+}
+
+/**
+ * Returns the descriptive copy for the active gallery collection.
+ */
+function getGalleryDescription(collection: string) {
+  return collection === "liquidium"
+    ? "Pulling all active Bitcoin Puppets loans from Liquidium.WTF. Filter by duration and sort by amount or date."
+    : "Browse Bitcoin Puppets and OPIUM ordinals from our local index. Filter, sort, and inspect each puppet up close.";
+}
 
 export default async function GalleryPage({ searchParams }: GalleryPageProps) {
   const resolvedSearchParams = searchParams ? await searchParams : undefined;
@@ -29,16 +47,18 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
     },
     errorMessage,
     hasSearchMatch,
-    filters: { collection, sortBy, listedOnly, query },
+    filters: { collection, sortBy, query },
     floorPrice,
   } = data;
+  const isLiquidiumCollection = collection === "liquidium";
+  const marqueeCopy = getGalleryMarquee(collection);
+  const galleryDescription = getGalleryDescription(collection);
 
   return (
     <div className="relative min-h-screen pb-20">
       <div className="window-titlebar marquee border-b-4 border-black">
         <span className="text-sm md:text-base font-bold tracking-wide">
-          bj bj bj ✦ MAGIC EDEN GALLERY ✦ WORLD PEACE ONLY ✦ CHAOTIC PIXEL
-          ENERGY ✦ bj bj bj
+          {marqueeCopy}
         </span>
       </div>
 
@@ -59,17 +79,12 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
           <div className="window-titlebar mb-4 px-3 py-2 text-sm font-bold uppercase">
             {activeCollection?.label ?? "Gallery"} Gallery
           </div>
-          <p className="text-sm leading-relaxed">
-            {collection === "liquidium"
-              ? "Pulling all active Bitcoin Puppets loans from Liquidium.WTF. Filter by duration and sort by amount or date."
-              : "Pulling live ordinals data from Magic Eden. Use the controls to sort, filter, and inspect each puppet up close."}
-          </p>
+          <p className="text-sm leading-relaxed">{galleryDescription}</p>
         </section>
 
         <GalleryControls
           collection={collection}
           sortBy={sortBy}
-          listedOnly={listedOnly}
           query={query}
         />
 
@@ -77,13 +92,12 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
           <div className="window-titlebar mb-4 flex items-center justify-between px-3 py-2 text-sm font-bold uppercase">
             <span>Results</span>
             <span className="text-xs">
-              {collection === "liquidium" ? (
+              {isLiquidiumCollection ? (
                 `Showing all ${loans.length} active loans`
               ) : (
                 <>
                   Page {page}
                   {totalPages ? ` of ${totalPages}` : ""}
-                  {listedOnly ? " · Listed" : ""}
                   {query ? " · Search" : ""}
                 </>
               )}
@@ -98,7 +112,6 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
                 href={`/gallery?${new URLSearchParams({
                   collection,
                   sortBy,
-                  ...(listedOnly ? { listed: "true" } : {}),
                 }).toString()}`}
                 className="pixel-border bg-puppet-pink px-3 py-2 text-xs font-bold uppercase text-black hover:-translate-y-0.5 hover:shadow-press transition"
               >
@@ -111,7 +124,7 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
             <div className="pixel-border bg-puppet-pink px-4 py-3 text-sm font-bold uppercase text-black">
               {errorMessage}
             </div>
-          ) : collection === "liquidium" ? (
+          ) : isLiquidiumCollection ? (
             <LiquidiumGallery loans={loans} floorPrice={floorPrice} />
           ) : tokens.length ? (
             <GalleryGrid
@@ -126,7 +139,7 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
             </div>
           )}
 
-          {collection !== "liquidium" && (
+          {!isLiquidiumCollection && (
             <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
               <div className="text-xs font-bold uppercase">
                 Showing {tokens.length} items
@@ -134,7 +147,7 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
             </div>
           )}
 
-          {collection !== "liquidium" && (
+          {!isLiquidiumCollection && (
             <GalleryPagination
               baseQuery={baseQuery}
               page={page}
@@ -158,8 +171,7 @@ export async function generateMetadata({
     getParam(resolvedSearchParams, "collection"),
   );
   const sortByParam = getParam(resolvedSearchParams, "sortBy");
-  const sortBy = isMagicEdenSort(sortByParam) ? sortByParam : DEFAULT_SORT;
-  const listedOnly = getParam(resolvedSearchParams, "listed") === "true";
+  const sortBy = isOrdinalSort(sortByParam) ? sortByParam : DEFAULT_SORT;
   const query = getParam(resolvedSearchParams, "q")?.trim() ?? "";
 
   // We can't reuse resolveActiveCollection easily without moving it, but find is cheap.
@@ -172,12 +184,10 @@ export async function generateMetadata({
   );
 
   const title = `${activeCollection?.label ?? "Gallery"} Gallery`;
-  const description =
-    "Browse live Bitcoin Puppets and OPIUM ordinals pulled from Magic Eden. Filter, sort, and inspect each puppet up close.";
+  const description = getGalleryDescription(collection);
   const hasFilters =
     collection !== "bitcoin-puppets" || // DEFAULT_COLLECTION
     sortBy !== DEFAULT_SORT ||
-    listedOnly ||
     Boolean(query);
 
   return {

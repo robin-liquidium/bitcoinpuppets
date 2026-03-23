@@ -1,6 +1,6 @@
 # features:
 
-- diplay magic eden last sales somewhere
+- display ordinal marketplace last sales somewhere
 - place stickers a bit better by default
 - navbar with quick links?
 - links to opium
