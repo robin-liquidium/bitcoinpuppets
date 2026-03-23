@@ -10,6 +10,24 @@ import { getGalleryData } from "./service";
 import type { GalleryMetadataProps, GalleryPageProps } from "./types";
 import { getParam, resolveCollection } from "./utils";
 
+/**
+ * Returns the marquee copy for the active gallery collection.
+ */
+function getGalleryMarquee(collection: string) {
+  return collection === "liquidium"
+    ? "bj bj bj ✦ LIQUIDIUM LOANS ✦ WORLD PEACE ONLY ✦ CHAOTIC PIXEL ENERGY ✦ bj bj bj"
+    : "bj bj bj ✦ ORDINALS GALLERY ✦ WORLD PEACE ONLY ✦ CHAOTIC PIXEL ENERGY ✦ bj bj bj";
+}
+
+/**
+ * Returns the descriptive copy for the active gallery collection.
+ */
+function getGalleryDescription(collection: string) {
+  return collection === "liquidium"
+    ? "Pulling all active Bitcoin Puppets loans from Liquidium.WTF. Filter by duration and sort by amount or date."
+    : "Browse Bitcoin Puppets and OPIUM ordinals from our local index. Filter, sort, and inspect each puppet up close.";
+}
+
 export default async function GalleryPage({ searchParams }: GalleryPageProps) {
   const resolvedSearchParams = searchParams ? await searchParams : undefined;
 
@@ -32,13 +50,15 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
     filters: { collection, sortBy, query },
     floorPrice,
   } = data;
+  const isLiquidiumCollection = collection === "liquidium";
+  const marqueeCopy = getGalleryMarquee(collection);
+  const galleryDescription = getGalleryDescription(collection);
 
   return (
     <div className="relative min-h-screen pb-20">
       <div className="window-titlebar marquee border-b-4 border-black">
         <span className="text-sm md:text-base font-bold tracking-wide">
-          bj bj bj ✦ ORDINALS GALLERY ✦ WORLD PEACE ONLY ✦ CHAOTIC PIXEL ENERGY
-          ✦ bj bj bj
+          {marqueeCopy}
         </span>
       </div>
 
@@ -59,11 +79,7 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
           <div className="window-titlebar mb-4 px-3 py-2 text-sm font-bold uppercase">
             {activeCollection?.label ?? "Gallery"} Gallery
           </div>
-          <p className="text-sm leading-relaxed">
-            {collection === "liquidium"
-              ? "Pulling all active Bitcoin Puppets loans from Liquidium.WTF. Filter by duration and sort by amount or date."
-              : "Pulling ordinals data from our local collection index. Use the controls to sort, filter, and inspect each puppet up close."}
-          </p>
+          <p className="text-sm leading-relaxed">{galleryDescription}</p>
         </section>
 
         <GalleryControls
@@ -108,7 +124,7 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
             <div className="pixel-border bg-puppet-pink px-4 py-3 text-sm font-bold uppercase text-black">
               {errorMessage}
             </div>
-          ) : collection === "liquidium" ? (
+          ) : isLiquidiumCollection ? (
             <LiquidiumGallery loans={loans} floorPrice={floorPrice} />
           ) : tokens.length ? (
             <GalleryGrid
@@ -123,7 +139,7 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
             </div>
           )}
 
-          {collection !== "liquidium" && (
+          {!isLiquidiumCollection && (
             <div className="mt-6 flex flex-wrap items-center justify-between gap-3">
               <div className="text-xs font-bold uppercase">
                 Showing {tokens.length} items
@@ -131,7 +147,7 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
             </div>
           )}
 
-          {collection !== "liquidium" && (
+          {!isLiquidiumCollection && (
             <GalleryPagination
               baseQuery={baseQuery}
               page={page}
@@ -168,8 +184,7 @@ export async function generateMetadata({
   );
 
   const title = `${activeCollection?.label ?? "Gallery"} Gallery`;
-  const description =
-    "Browse Bitcoin Puppets and OPIUM ordinals from our local index. Filter, sort, and inspect each puppet up close.";
+  const description = getGalleryDescription(collection);
   const hasFilters =
     collection !== "bitcoin-puppets" || // DEFAULT_COLLECTION
     sortBy !== DEFAULT_SORT ||
