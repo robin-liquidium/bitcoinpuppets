@@ -6,8 +6,8 @@ const LINKS = [
   { name: "X", href: "https://x.com/BitcoinPuppets" },
   { name: "Telegram", href: "https://t.me/worldpeacegospel" },
   {
-    name: "Magic Eden",
-    href: "https://magiceden.io/ordinals/marketplace/bitcoin-puppets",
+    name: "Satflow",
+    href: "https://www.satflow.com/ordinals/bitcoin-puppets",
   },
   { name: "Discord", href: "https://discord.gg/bitcoinpuppets" },
   { name: "GitHub", href: "https://github.com/ropl-btc/bitcoinpuppets" },

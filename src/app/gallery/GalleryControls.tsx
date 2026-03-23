@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useMemo, useState, useTransition } from "react";
-import { MAGIC_EDEN_SORT_OPTIONS, type MagicEdenSort } from "@/lib/magicEden";
+import { ORDINAL_SORT_OPTIONS, type OrdinalSort } from "@/lib/ordinals";
 
 const COLLECTIONS = [
   { value: "bitcoin-puppets", label: "Bitcoin Puppets" },
@@ -12,15 +12,13 @@ const COLLECTIONS = [
 
 type GalleryControlsProps = {
   collection: string;
-  sortBy: MagicEdenSort;
-  listedOnly: boolean;
+  sortBy: OrdinalSort;
   query?: string;
 };
 
 export default function GalleryControls({
   collection,
   sortBy,
-  listedOnly,
   query,
 }: GalleryControlsProps) {
   const router = useRouter();
@@ -74,36 +72,22 @@ export default function GalleryControls({
       </div>
 
       {collection !== "liquidium" && (
-        <div className="mt-4 grid gap-4 md:grid-cols-[1.3fr_1fr_1fr]">
+        <div className="mt-4 grid gap-4 md:grid-cols-[1.3fr_1fr]">
           <label className="flex flex-col gap-2 text-xs font-bold uppercase">
             Sort by
             <select
               value={sortBy}
               onChange={(event) =>
-                updateParams({ sortBy: event.target.value as MagicEdenSort })
+                updateParams({ sortBy: event.target.value as OrdinalSort })
               }
               className="pixel-border bg-white px-3 py-2 text-sm font-bold"
             >
-              {MAGIC_EDEN_SORT_OPTIONS.map((option) => (
+              {ORDINAL_SORT_OPTIONS.map((option) => (
                 <option key={option.value} value={option.value}>
                   {option.label}
                 </option>
               ))}
             </select>
-          </label>
-
-          <label className="flex items-center gap-2 text-xs font-bold uppercase">
-            <input
-              type="checkbox"
-              checked={listedOnly}
-              onChange={(event) =>
-                updateParams({
-                  listed: event.target.checked ? "true" : undefined,
-                })
-              }
-              className="h-4 w-4"
-            />
-            Listed only
           </label>
 
           <form

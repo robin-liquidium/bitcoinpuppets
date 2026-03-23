@@ -1,4 +1,4 @@
-import { MAGIC_EDEN_SORT_OPTIONS } from "@/lib/magicEden";
+import { ORDINAL_SORT_OPTIONS } from "@/lib/ordinals";
 
 export const COLLECTIONS = [
   { symbol: "bitcoin-puppets", label: "Bitcoin Puppets" },
@@ -7,7 +7,8 @@ export const COLLECTIONS = [
 ] as const;
 
 export const DEFAULT_COLLECTION = "bitcoin-puppets";
-export const DEFAULT_SORT = MAGIC_EDEN_SORT_OPTIONS[2]?.value ?? "priceAsc";
+export const DEFAULT_SORT =
+  ORDINAL_SORT_OPTIONS[1]?.value ?? "inscriptionNumberDesc";
 export const DEFAULT_PAGE = 1;
 export const PAGE_SIZE = 20;
 export const SEARCH_MAX_MATCHES = 500;

@@ -2,10 +2,10 @@
 
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
-import type { MagicEdenToken } from "@/lib/magicEden";
+import type { OrdinalToken } from "@/lib/ordinals";
 
 type GalleryGridProps = {
-  tokens: MagicEdenToken[];
+  tokens: OrdinalToken[];
   collectionLabel: string;
 };
 
@@ -26,7 +26,7 @@ export default function GalleryGrid({
   tokens,
   collectionLabel,
 }: GalleryGridProps) {
-  const [selected, setSelected] = useState<MagicEdenToken | null>(null);
+  const [selected, setSelected] = useState<OrdinalToken | null>(null);
 
   useEffect(() => {
     if (!selected) return;
@@ -85,7 +85,7 @@ export default function GalleryGrid({
                   {formatNumber(token.listedPrice)} sats
                 </span>
               ) : (
-                <span className="text-gray-600">Unlisted</span>
+                <span className="text-gray-600">Not listed on this site</span>
               )}
             </div>
           </button>
@@ -153,26 +153,21 @@ export default function GalleryGrid({
               <div className="pixel-border bg-white px-3 py-2">
                 Inscription #{selected.inscriptionNumber}
               </div>
-              <div className="pixel-border bg-white px-3 py-2">
-                {selected.listed
-                  ? `Listed: ${formatNumber(selected.listedPrice)} sats`
-                  : "Not listed"}
-              </div>
-              <a
-                href={`https://magiceden.io/ordinals/item-details/${selected.id}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="pixel-border bg-puppet-green px-3 py-2 text-xs font-bold uppercase text-black hover:-translate-y-0.5 hover:shadow-press transition"
-              >
-                Magic Eden
-              </a>
               <a
                 href={`https://www.satflow.com/ordinal/${selected.id}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="pixel-border bg-puppet-purple px-3 py-2 text-xs font-bold uppercase text-black hover:-translate-y-0.5 hover:shadow-press transition"
               >
-                Satflow
+                View on Satflow
+              </a>
+              <a
+                href={`https://ordinals.com/inscription/${selected.id}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pixel-border bg-puppet-green px-3 py-2 text-xs font-bold uppercase text-black hover:-translate-y-0.5 hover:shadow-press transition"
+              >
+                View on Ordinals.com
               </a>
             </div>
           </div>

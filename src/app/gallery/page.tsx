@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { isMagicEdenSort } from "@/lib/magicEden";
+import { isOrdinalSort } from "@/lib/ordinals";
 import { DEFAULT_SORT, SITE_NAME, SOCIAL_IMAGE } from "./constants";
 import GalleryControls from "./GalleryControls";
 import GalleryGrid from "./GalleryGrid";
@@ -8,7 +8,7 @@ import GalleryPagination from "./GalleryPagination";
 import LiquidiumGallery from "./LiquidiumGallery";
 import { getGalleryData } from "./service";
 import type { GalleryMetadataProps, GalleryPageProps } from "./types";
-import { getParam, resolveCollection } from "./utils"; // Re-export isMagicEdenSort from utils if needed OR import from lib
+import { getParam, resolveCollection } from "./utils";
 
 export default async function GalleryPage({ searchParams }: GalleryPageProps) {
   const resolvedSearchParams = searchParams ? await searchParams : undefined;
@@ -37,8 +37,8 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
     <div className="relative min-h-screen pb-20">
       <div className="window-titlebar marquee border-b-4 border-black">
         <span className="text-sm md:text-base font-bold tracking-wide">
-          bj bj bj ✦ MAGIC EDEN GALLERY ✦ WORLD PEACE ONLY ✦ CHAOTIC PIXEL
-          ENERGY ✦ bj bj bj
+          bj bj bj ✦ ORDINALS GALLERY ✦ WORLD PEACE ONLY ✦ CHAOTIC PIXEL ENERGY
+          ✦ bj bj bj
         </span>
       </div>
 
@@ -62,14 +62,13 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
           <p className="text-sm leading-relaxed">
             {collection === "liquidium"
               ? "Pulling all active Bitcoin Puppets loans from Liquidium.WTF. Filter by duration and sort by amount or date."
-              : "Pulling live ordinals data from Magic Eden. Use the controls to sort, filter, and inspect each puppet up close."}
+              : "Pulling ordinals data from our local collection index. Use the controls to sort, filter, and inspect each puppet up close."}
           </p>
         </section>
 
         <GalleryControls
           collection={collection}
           sortBy={sortBy}
-          listedOnly={listedOnly}
           query={query}
         />
 
@@ -158,7 +157,7 @@ export async function generateMetadata({
     getParam(resolvedSearchParams, "collection"),
   );
   const sortByParam = getParam(resolvedSearchParams, "sortBy");
-  const sortBy = isMagicEdenSort(sortByParam) ? sortByParam : DEFAULT_SORT;
+  const sortBy = isOrdinalSort(sortByParam) ? sortByParam : DEFAULT_SORT;
   const listedOnly = getParam(resolvedSearchParams, "listed") === "true";
   const query = getParam(resolvedSearchParams, "q")?.trim() ?? "";
 
@@ -173,7 +172,7 @@ export async function generateMetadata({
 
   const title = `${activeCollection?.label ?? "Gallery"} Gallery`;
   const description =
-    "Browse live Bitcoin Puppets and OPIUM ordinals pulled from Magic Eden. Filter, sort, and inspect each puppet up close.";
+    "Browse Bitcoin Puppets and OPIUM ordinals from our local index. Filter, sort, and inspect each puppet up close.";
   const hasFilters =
     collection !== "bitcoin-puppets" || // DEFAULT_COLLECTION
     sortBy !== DEFAULT_SORT ||

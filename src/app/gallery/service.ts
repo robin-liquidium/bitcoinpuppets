@@ -1,10 +1,10 @@
 import { getCollectionIndex } from "@/data/collections";
 import { fetchLiquidiumActiveLoans, type LiquidiumLoan } from "@/lib/liquidium";
 import {
-  fetchMagicEdenCollectionStats,
-  fetchMagicEdenTokens,
-  isMagicEdenSort,
-} from "@/lib/magicEden";
+  getCollectionTokens,
+  getTokensByIds,
+  isOrdinalSort,
+} from "@/lib/ordinals";
 import {
   COLLECTION_TOTALS,
   COLLECTIONS,
@@ -22,7 +22,7 @@ import {
   resolvePage,
 } from "./utils";
 
-type Token = Awaited<ReturnType<typeof fetchMagicEdenTokens>>["tokens"][0];
+type Token = ReturnType<typeof getCollectionTokens>["tokens"][0];
 
 interface SearchCollectionTokensParams {
   collection: string;
@@ -71,7 +71,7 @@ function orderTokensById(tokens: Token[], order: string[]) {
 export async function getGalleryData(searchParams: SearchParams | undefined) {
   const collection = resolveCollection(getParam(searchParams, "collection"));
   const sortByParam = getParam(searchParams, "sortBy");
-  const sortBy = isMagicEdenSort(sortByParam) ? sortByParam : DEFAULT_SORT;
+  const sortBy = isOrdinalSort(sortByParam) ? sortByParam : DEFAULT_SORT;
   const listedOnly = getParam(searchParams, "listed") === "true";
   const rawQuery = getParam(searchParams, "q")?.trim() ?? "";
   const page = resolvePage(getParam(searchParams, "page"));
@@ -94,29 +94,18 @@ export async function getGalleryData(searchParams: SearchParams | undefined) {
   const tokenIdsParam =
     tokenIdCandidates.length > 0 &&
     tokenIdCandidates.every((value) => /^[0-9a-f]{64}i\d+$/i.test(value))
-      ? tokenIdCandidates.join(",")
+      ? tokenIdCandidates
       : undefined;
 
   try {
     if (collection === "liquidium") {
       try {
         const loans = await fetchLiquidiumActiveLoans();
-        let floorPrice: number | null = null;
-
-        try {
-          const stats = await fetchMagicEdenCollectionStats("bitcoin-puppets");
-          floorPrice = stats.floorPrice;
-        } catch (statsError) {
-          console.warn(
-            "Failed to fetch Magic Eden stats for Liquidium floor price:",
-            statsError,
-          );
-        }
 
         return {
-          tokens: [], // Not used for liquidium
+          tokens: [],
           loans,
-          floorPrice,
+          floorPrice: null,
           collection,
           activeCollection,
           sortBy,
@@ -142,15 +131,7 @@ export async function getGalleryData(searchParams: SearchParams | undefined) {
     }
 
     if (query && tokenIdsParam) {
-      const response = await fetchMagicEdenTokens({
-        collectionSymbol: collection,
-        tokenIds: tokenIdsParam,
-        limit: PAGE_SIZE,
-      });
-      tokens = response.tokens;
-      if (listedOnly) {
-        tokens = tokens.filter((token) => token.listed);
-      }
+      tokens = getTokensByIds(collection, tokenIdsParam);
       hasSearchMatch = tokens.length > 0;
       nextPage = null;
     } else if (query) {
@@ -167,29 +148,21 @@ export async function getGalleryData(searchParams: SearchParams | undefined) {
         hasSearchMatch = false;
         nextPage = null;
       } else {
-        const apiResponse = await fetchMagicEdenTokens({
-          collectionSymbol: collection,
-          tokenIds: tokenIds.join(","),
-          limit: PAGE_SIZE,
-        });
-        tokens = orderTokensById(apiResponse.tokens, tokenIds);
-        if (listedOnly) {
-          tokens = tokens.filter((token) => token.listed);
-        }
+        const staticTokens = getTokensByIds(collection, tokenIds);
+        tokens = orderTokensById(staticTokens, tokenIds);
         hasSearchMatch = tokens.length > 0;
         nextPage = response.hasNext ? page + 1 : null;
       }
     } else {
-      const response = await fetchMagicEdenTokens({
-        collectionSymbol: collection,
-        tokenIds: tokenIdsParam,
+      const response = getCollectionTokens({
+        collection,
         sortBy,
-        listed: listedOnly ? true : undefined,
+        listedOnly,
         limit: PAGE_SIZE,
         offset,
       });
       tokens = response.tokens;
-      nextPage = tokens.length === PAGE_SIZE ? page + 1 : null;
+      nextPage = offset + PAGE_SIZE < response.total ? page + 1 : null;
     }
   } catch (error) {
     errorMessage =

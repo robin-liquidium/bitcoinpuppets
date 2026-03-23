@@ -34,8 +34,4 @@ Bitcoin Puppets is a community-driven, free mint Ordinals collection. The broade
 
 ## Static search index
 
-Gallery search uses a prebuilt index stored in `src/data/collections/*.json` to avoid Magic Eden rate limits. Build or refresh the index by running:
-
-```bash
-MAGIC_EDEN_API_KEY=... node scripts/build-magiceden-index.mjs
-```
+Gallery search uses a prebuilt index stored in `src/data/collections/*.json`.
