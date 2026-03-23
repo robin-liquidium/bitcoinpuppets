@@ -92,7 +92,7 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
           <div className="window-titlebar mb-4 flex items-center justify-between px-3 py-2 text-sm font-bold uppercase">
             <span>Results</span>
             <span className="text-xs">
-              {collection === "liquidium" ? (
+              {isLiquidiumCollection ? (
                 `Showing all ${loans.length} active loans`
               ) : (
                 <>
