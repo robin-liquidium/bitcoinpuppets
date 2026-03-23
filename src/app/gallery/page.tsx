@@ -29,7 +29,7 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
     },
     errorMessage,
     hasSearchMatch,
-    filters: { collection, sortBy, listedOnly, query },
+    filters: { collection, sortBy, query },
     floorPrice,
   } = data;
 
@@ -82,7 +82,6 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
                 <>
                   Page {page}
                   {totalPages ? ` of ${totalPages}` : ""}
-                  {listedOnly ? " · Listed" : ""}
                   {query ? " · Search" : ""}
                 </>
               )}
@@ -97,7 +96,6 @@ export default async function GalleryPage({ searchParams }: GalleryPageProps) {
                 href={`/gallery?${new URLSearchParams({
                   collection,
                   sortBy,
-                  ...(listedOnly ? { listed: "true" } : {}),
                 }).toString()}`}
                 className="pixel-border bg-puppet-pink px-3 py-2 text-xs font-bold uppercase text-black hover:-translate-y-0.5 hover:shadow-press transition"
               >
@@ -158,7 +156,6 @@ export async function generateMetadata({
   );
   const sortByParam = getParam(resolvedSearchParams, "sortBy");
   const sortBy = isOrdinalSort(sortByParam) ? sortByParam : DEFAULT_SORT;
-  const listedOnly = false;
   const query = getParam(resolvedSearchParams, "q")?.trim() ?? "";
 
   // We can't reuse resolveActiveCollection easily without moving it, but find is cheap.
@@ -176,7 +173,6 @@ export async function generateMetadata({
   const hasFilters =
     collection !== "bitcoin-puppets" || // DEFAULT_COLLECTION
     sortBy !== DEFAULT_SORT ||
-    listedOnly ||
     Boolean(query);
 
   return {
