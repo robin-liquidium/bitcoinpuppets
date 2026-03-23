@@ -33,6 +33,7 @@ export default function GalleryControls({
 
   const updateParams = (updates: Record<string, string | undefined>) => {
     const params = new URLSearchParams(currentParams.toString());
+    params.delete("listed");
     Object.entries(updates).forEach(([key, value]) => {
       if (!value) {
         params.delete(key);

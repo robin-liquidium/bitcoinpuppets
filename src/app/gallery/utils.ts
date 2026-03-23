@@ -24,7 +24,7 @@ export function buildBaseQuery(searchParams: SearchParams | undefined) {
   const query = new URLSearchParams();
   if (searchParams) {
     Object.entries(searchParams).forEach(([key, value]) => {
-      if (key === "page") return;
+      if (key === "page" || key === "listed") return;
       const normalized = Array.isArray(value) ? value[0] : value;
       if (normalized) {
         query.set(key, normalized);

@@ -58,10 +58,12 @@ function sortTokens(tokens: OrdinalToken[], sortBy: OrdinalSort) {
   return sorted;
 }
 
+/**
+ * Returns a paginated slice of tokens from the local collection index.
+ */
 export function getCollectionTokens(options: {
   collection: string;
   sortBy: OrdinalSort;
-  listedOnly: boolean;
   offset: number;
   limit: number;
 }) {
@@ -75,32 +77,36 @@ export function getCollectionTokens(options: {
     listed: false,
   }));
 
-  const visible = options.listedOnly ? [] : mapped;
-  const sorted = sortTokens(visible, options.sortBy);
+  const sorted = sortTokens(mapped, options.sortBy);
   const tokens = sorted.slice(options.offset, options.offset + options.limit);
 
   return {
     tokens,
-    total: visible.length,
+    total: mapped.length,
   };
 }
 
+/**
+ * Resolves tokens by id while preserving the caller-provided order.
+ */
 export function getTokensByIds(collection: string, tokenIds: string[]) {
-  const lookup = new Set(tokenIds);
-  const index = getCollectionIndex(collection);
+  const indexById = new Map(
+    getCollectionIndex(collection).map((item) => [
+      item.id,
+      {
+        id: item.id,
+        contentURI: resolveContentUri(item.id),
+        contentType: inferContentTypeFromDisplayName(item.displayName),
+        displayName:
+          item.displayName ?? `Inscription #${item.inscriptionNumber}`,
+        inscriptionNumber: item.inscriptionNumber,
+        listed: false,
+      } satisfies OrdinalToken,
+    ]),
+  );
 
-  return index
-    .filter((item) => lookup.has(item.id))
-    .map(
-      (item) =>
-        ({
-          id: item.id,
-          contentURI: resolveContentUri(item.id),
-          contentType: inferContentTypeFromDisplayName(item.displayName),
-          displayName:
-            item.displayName ?? `Inscription #${item.inscriptionNumber}`,
-          inscriptionNumber: item.inscriptionNumber,
-          listed: false,
-        }) satisfies OrdinalToken,
-    );
+  return tokenIds.flatMap((tokenId) => {
+    const token = indexById.get(tokenId);
+    return token ? [token] : [];
+  });
 }

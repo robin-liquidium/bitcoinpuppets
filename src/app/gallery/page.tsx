@@ -158,7 +158,7 @@ export async function generateMetadata({
   );
   const sortByParam = getParam(resolvedSearchParams, "sortBy");
   const sortBy = isOrdinalSort(sortByParam) ? sortByParam : DEFAULT_SORT;
-  const listedOnly = getParam(resolvedSearchParams, "listed") === "true";
+  const listedOnly = false;
   const query = getParam(resolvedSearchParams, "q")?.trim() ?? "";
 
   // We can't reuse resolveActiveCollection easily without moving it, but find is cheap.

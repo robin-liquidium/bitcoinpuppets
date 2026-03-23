@@ -72,7 +72,7 @@ export async function getGalleryData(searchParams: SearchParams | undefined) {
   const collection = resolveCollection(getParam(searchParams, "collection"));
   const sortByParam = getParam(searchParams, "sortBy");
   const sortBy = isOrdinalSort(sortByParam) ? sortByParam : DEFAULT_SORT;
-  const listedOnly = getParam(searchParams, "listed") === "true";
+  const listedOnly = false;
   const rawQuery = getParam(searchParams, "q")?.trim() ?? "";
   const page = resolvePage(getParam(searchParams, "page"));
   const offset = (page - 1) * PAGE_SIZE;
@@ -157,7 +157,6 @@ export async function getGalleryData(searchParams: SearchParams | undefined) {
       const response = getCollectionTokens({
         collection,
         sortBy,
-        listedOnly,
         limit: PAGE_SIZE,
         offset,
       });
