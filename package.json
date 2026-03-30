@@ -46,7 +46,7 @@
     "lint-staged": "^16.2.7",
     "secretlint": "^11.3.1",
     "tailwindcss": "^4.1.18",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.2",
     "wrangler": "^4.65.0"
   }
 }
