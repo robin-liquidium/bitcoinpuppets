@@ -33,7 +33,7 @@
     "@opennextjs/cloudflare": "^1.16.4",
     "next": "16.1.6",
     "react": "19.2.4",
-    "react-dom": "19.2.4"
+    "react-dom": "19.2.5"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.3.15",
