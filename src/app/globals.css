@@ -689,9 +689,14 @@ details {
 .doodle-button:hover,
 .doodle-button:focus-visible {
   filter: brightness(1.1) contrast(1.18) saturate(1.15);
-  outline: 3px dashed #000;
-  outline-offset: 3px;
   transform: translate(-2px, -3px) rotate(-2deg);
+}
+
+.doodle-button:focus-visible {
+  outline: none;
+  box-shadow:
+    inset 0 0 0 3px #fff,
+    inset 0 0 0 6px #000;
 }
 
 .doodle-button:nth-child(2n):hover,
@@ -701,7 +706,6 @@ details {
 
 .doodle-button:active {
   filter: brightness(0.95) contrast(1.25);
-  outline-offset: 1px;
   transform: translate(2px, 3px) rotate(0deg);
 }
 

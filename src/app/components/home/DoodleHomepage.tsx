@@ -88,11 +88,11 @@ function DoodleSticker({
     <span className={`doodle-sticker ${className}`}>
       <Image
         alt={alt}
+        className="h-auto w-full"
         draggable={false}
         height={height}
         priority
         src={src}
-        style={{ height: "auto", width: "100%" }}
         width={width}
         unoptimized
       />
