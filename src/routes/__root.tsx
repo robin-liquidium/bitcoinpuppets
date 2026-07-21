@@ -1,6 +1,7 @@
 import {
   createRootRoute,
   HeadContent,
+  Link,
   Outlet,
   Scripts,
 } from "@tanstack/react-router";
@@ -115,12 +116,12 @@ function NotFoundPage() {
           404.exe
         </div>
         <h1 className="text-4xl font-black uppercase">Puppet not found</h1>
-        <a
-          href="/"
+        <Link
+          to="/"
           className="pixel-border mt-6 inline-block bg-puppet-green px-4 py-2 text-sm font-bold uppercase"
         >
           Back home
-        </a>
+        </Link>
       </section>
     </main>
   );

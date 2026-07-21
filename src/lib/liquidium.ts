@@ -22,7 +22,10 @@ export async function fetchLiquidiumActiveLoans(): Promise<LiquidiumLoan[]> {
           },
           cf: {
             cacheEverything: true,
-            cacheTtl: 600,
+            cacheTtlByStatus: {
+              "200-299": 600,
+              "400-599": 0,
+            },
           },
         }).then(async (res) => {
           if (!res.ok) {

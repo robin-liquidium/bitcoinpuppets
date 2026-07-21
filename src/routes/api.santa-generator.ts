@@ -36,8 +36,24 @@ export const Route = createFileRoute("/api/santa-generator")({
           );
         }
 
-        const hatResponse = await fetch(new URL(SANTA_HAT_PATH, request.url));
+        let hatResponse: Response;
+        try {
+          hatResponse = await fetch(new URL(SANTA_HAT_PATH, request.url));
+        } catch (error) {
+          console.error(
+            "Failed to fetch the Santa hat reference image:",
+            error,
+          );
+          return Response.json(
+            { error: "Failed to load the Santa hat reference image." },
+            { status: 500 },
+          );
+        }
+
         if (!hatResponse.ok) {
+          console.error(
+            `Santa hat reference image returned ${hatResponse.status} ${hatResponse.statusText}.`,
+          );
           return Response.json(
             { error: "Failed to load the Santa hat reference image." },
             { status: 500 },
