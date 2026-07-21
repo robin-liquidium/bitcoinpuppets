@@ -2,29 +2,27 @@
 
 ## Project Overview
 
-Bitcoin Puppets is a community-led hub for the Bitcoin Puppets Ordinals collection. The site embraces a chaotic retro desktop vibe while staying usable, fast, and deployable on Cloudflare via OpenNext.
+Bitcoin Puppets is a community-led hub for the Bitcoin Puppets Ordinals collection. The site embraces a chaotic retro desktop vibe while staying usable, fast, and deployable directly on Cloudflare Workers.
 
 ## Tech Stack
 
-- Next.js 16 (App Router)
+- TanStack Start with TanStack Router file-based routing
 - React 19
 - TypeScript (strict)
 - Tailwind CSS v4
-- OpenNext Cloudflare adapter (`@opennextjs/cloudflare`)
+- Vite with `@cloudflare/vite-plugin`
 - Cloudflare Workers + `wrangler.jsonc`
-- `next/image` for images (Cloudflare Images binding enabled via `wrangler.jsonc`)
 - Bun for package management
 
 ## Build, Lint, Test Commands
 
 ### Core Commands
 
-- `bun run dev` — Next.js dev server (Turbopack).
-- `bun run build` — Production build.
-- `bun run start` — Serve the production build locally.
-- `bun run preview` — OpenNext build + Cloudflare `workerd` preview.
-- `bun run deploy` — OpenNext build + deploy to Cloudflare.
-- `bun run upload` — OpenNext build + upload without deploy.
+- `bun run dev` — Vite development server in the Workers runtime.
+- `bun run build` — TanStack Start client and Worker production build.
+- `bun run preview` — Build and preview inside Cloudflare `workerd`.
+- `bun run deploy` — Build and deploy with Wrangler.
+- `bun run upload` — Build and upload a Worker version without deploying it.
 
 ### Linting, Formatting, Type Checks
 
@@ -49,7 +47,7 @@ Bitcoin Puppets is a community-led hub for the Bitcoin Puppets Ordinals collecti
 ## Runtime & Deployment Notes
 
 - Local dev runs on `http://localhost:3000`.
-- Cloudflare preview runs the OpenNext output inside `workerd`.
+- Local development and preview run in `workerd` through Cloudflare's Vite plugin.
 - Production URL: https://bitcoinpuppets.community/
 
 ## Code Style Guidelines
@@ -67,7 +65,7 @@ Bitcoin Puppets is a community-led hub for the Bitcoin Puppets Ordinals collecti
 - React components are PascalCase (`HeroSection.tsx`).
 - Hooks are `useX` camelCase (`useDraggableStickers.ts`).
 - Utility functions are camelCase, constants are `SCREAMING_SNAKE_CASE`.
-- Next.js `page.tsx`, `layout.tsx`, `route.ts`, `loading.tsx` use framework defaults.
+- TanStack routes live in `src/routes`; the generated `src/routeTree.gen.ts` must not be edited by hand.
 
 ### Imports
 
@@ -83,15 +81,13 @@ Bitcoin Puppets is a community-led hub for the Bitcoin Puppets Ordinals collecti
 - Use `type` aliases for shapes, `interface` when extending.
 - Avoid `as` casts unless narrowing from trusted sources.
 
-### React & Next.js
+### React & TanStack Start
 
-- Server Components by default; add `'use client'` only when needed.
-- Keep client islands small and focused.
-- Prefer React Actions / `<form action>` for mutations when applicable.
-- Use `next/image` and `next/link` for assets and navigation.
-- Use `fetch` with Next caching options for server data.
-- Default export for Next.js route components (`page.tsx`, `layout.tsx`).
-- Prefer named exports for non-route modules unless existing code uses default.
+- Use TanStack Router `Link` and navigation APIs for internal navigation.
+- Use route loaders and server functions for server-only application data.
+- Use server route handlers for public HTTP APIs.
+- Keep Worker-only secrets and APIs out of client bundles.
+- Prefer named exports for shared modules unless existing code uses default.
 
 ### Styling (Tailwind v4)
 
@@ -123,13 +119,13 @@ Bitcoin Puppets is a community-led hub for the Bitcoin Puppets Ordinals collecti
 ## Content & Data
 
 - Gallery search uses static indices in `src/data/collections/*.json`.
-- Refresh the index with `MAGIC_EDEN_API_KEY=... node scripts/build-magiceden-index.mjs`.
-- Liquidium + Magic Eden services live in `src/lib` and `src/app/gallery`.
+- Gallery UI and loading logic live in `src/features/gallery`; shared Ordinals
+  and Liquidium data access lives in `src/lib`.
 
 ## Security & Secrets
 
 - Secretlint runs on every commit; avoid committing API keys.
-- Use `.env.local` for local secrets (do not commit).
+- Use `.dev.vars` for local Worker secrets (do not commit).
 
 ## Editor/Assistant Rules
 
