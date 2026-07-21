@@ -4,7 +4,7 @@ export default function LoreSection() {
       <div className="window-titlebar mb-4 px-3 py-2 text-sm font-bold uppercase">
         Full Lore (Click to Expand)
       </div>
-      <details className="pixel-border bg-white px-4 py-3">
+      <details className="px-4 py-3">
         <summary className="cursor-pointer text-sm font-bold uppercase">
           Read the absurd odyssey of Bitcoin Puppets + O.P.I.U.M.
         </summary>

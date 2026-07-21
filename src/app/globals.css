@@ -2,15 +2,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f7f0d2;
+  --background: #ffffff;
   --foreground: #1a1a1a;
-  --win-blue: #0b5fa5;
-  --win-yellow: #f9d64a;
-  --win-pink: #ff6bd6;
-  --win-green: #8cff66;
-  --win-purple: #6b5cff;
+  --win-blue: #0e73cf;
+  --win-yellow: #ffe34a;
+  --win-pink: #ff59c8;
+  --win-green: #7dff4d;
+  --win-purple: #6851ff;
   --win-gray: #c9c9c9;
-  --win-shadow: #222222;
+  --win-shadow: #121212;
+  --scribble-ink: #050505;
   --font-comic:
     "Comic Sans MS", "Comic Sans", "Comic Neue", "Chalkboard SE", "Marker Felt",
     "Trebuchet MS", sans-serif;
@@ -39,6 +40,7 @@ body {
   -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: auto;
   text-rendering: optimizeSpeed;
+  letter-spacing: 0;
 }
 
 body::before {
@@ -50,11 +52,16 @@ body::before {
   background-position: center;
   background-repeat: no-repeat;
   z-index: -1;
+  filter: saturate(1.45) contrast(1.14);
+  image-rendering: pixelated;
 }
 
 img,
+picture,
 video,
-canvas {
+canvas,
+svg image {
+  -ms-interpolation-mode: nearest-neighbor;
   image-rendering: pixelated;
 }
 
@@ -78,7 +85,8 @@ canvas {
 }
 
 .sticker:hover {
-  --scale: 1.08;
+  --scale: 1.12;
+  filter: contrast(1.35) saturate(1.35);
 }
 
 .sticker:active {
@@ -117,24 +125,142 @@ summary {
 }
 
 .pixel-border {
-  box-shadow: 3px 3px 0 var(--win-shadow);
-  border: 3px solid #000;
+  --doodle-fill: rgb(255 255 255 / 0.92);
+  --doodle-border-width: 4px;
+  --doodle-shape: shape(
+    from 1.1% 2.8%,
+    line to 13% 1.3%,
+    line to 31% 2.1%,
+    line to 49% 0.8%,
+    line to 68% 2.4%,
+    line to 98.5% 1.1%,
+    line to 97.7% 24%,
+    line to 99% 43%,
+    line to 97.5% 67%,
+    line to 98.6% 96.8%,
+    line to 78% 98.1%,
+    line to 59% 96.9%,
+    line to 37% 99%,
+    line to 18% 97.4%,
+    line to 1.3% 98.7%,
+    line to 2.6% 74%,
+    line to 1.1% 55%,
+    line to 2.2% 31%,
+    close
+  );
+  position: relative;
+  isolation: isolate;
+  border: var(--doodle-border-width) solid var(--scribble-ink);
+  border-radius: 0;
+  /* biome-ignore lint/correctness/noUnknownProperty: border-shape is a supported experimental CSS API in the target browser. */
+  border-shape: var(--doodle-shape);
+  background-color: var(--doodle-fill);
+  background-image: none;
+  image-rendering: pixelated;
+  box-shadow: none;
+}
+
+a.pixel-border,
+button.pixel-border,
+label.pixel-border,
+select.pixel-border,
+input.pixel-border {
+  --doodle-fill: #ffffff;
+  --doodle-border-width: 3px;
+  --doodle-shape: shape(
+    from 2% 7%,
+    line to 21% 2%,
+    line to 46% 5%,
+    line to 72% 1%,
+    line to 98% 5%,
+    line to 96% 51%,
+    line to 99% 94%,
+    line to 65% 98%,
+    line to 39% 95%,
+    line to 3% 98%,
+    line to 5% 58%,
+    close
+  );
+  background-color: var(--doodle-fill);
+  background-image: none;
+  box-shadow: none;
+}
+
+a.pixel-border:hover,
+button.pixel-border:hover,
+label.pixel-border:hover {
+  transform: translate(2px, 3px) rotate(1.2deg);
+  box-shadow: none;
+}
+
+a.pixel-border:active,
+button.pixel-border:active {
+  transform: translate(4px, 5px) rotate(-0.7deg);
+  box-shadow: none;
 }
 
 .window-titlebar {
-  background: linear-gradient(90deg, var(--win-blue), #1a88e6);
+  --doodle-fill: var(--win-blue);
+  --doodle-border-width: 3px;
+  --doodle-shape: shape(
+    from 0.7% 12%,
+    line to 18% 4%,
+    line to 37% 9%,
+    line to 54% 3%,
+    line to 76% 8%,
+    line to 99% 4%,
+    line to 98.2% 89%,
+    line to 82% 94%,
+    line to 61% 88%,
+    line to 42% 94%,
+    line to 21% 89%,
+    line to 1.2% 95%,
+    close
+  );
+  position: relative;
+  overflow: hidden;
+  border: var(--doodle-border-width) solid var(--scribble-ink);
+  /* biome-ignore lint/correctness/noUnknownProperty: border-shape is a supported experimental CSS API in the target browser. */
+  border-shape: var(--doodle-shape);
+  background-color: var(--doodle-fill);
+  background-image: none;
+  clip-path: var(--doodle-shape);
+  image-rendering: pixelated;
   color: #fff;
+  text-shadow:
+    2px 0 #00335f,
+    -1px 1px #00335f,
+    0 2px #00335f;
+  transform: rotate(-0.45deg);
+}
+
+.window-titlebar::after {
+  content: "x  _  ?";
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  color: #fff;
+  font-size: 10px;
+  line-height: 1;
+  opacity: 0.38;
+  transform: translateY(-50%) rotate(5deg);
 }
 
 .marquee {
   white-space: nowrap;
   overflow: hidden;
+  border-bottom-style: dashed;
+  filter: contrast(1.2);
 }
 
 .marquee span {
   display: inline-block;
   padding-left: 100%;
   animation: marquee 18s linear infinite;
+  text-shadow:
+    1px 1px #00335f,
+    2px 0 #00335f;
+  transform: translateY(1px);
 }
 
 @keyframes marquee {
@@ -163,6 +289,8 @@ summary {
   -webkit-background-clip: text;
   color: transparent;
   animation: rainbow-shift 3s linear infinite;
+  -webkit-text-stroke: 1px #000;
+  filter: contrast(1.4);
 }
 
 @keyframes rainbow-shift {
@@ -177,4 +305,537 @@ summary {
 .content-auto {
   content-visibility: auto;
   contain-intrinsic-size: 1px 1200px;
+}
+
+h1,
+h2,
+h3,
+summary,
+.text-base,
+.text-lg {
+  text-shadow:
+    1px 0 rgb(0 0 0 / 0.18),
+    0 1px rgb(0 0 0 / 0.12);
+}
+
+h1 {
+  line-height: 0.95;
+  text-shadow:
+    2px 1px #fff,
+    4px 3px rgb(0 0 0 / 0.16);
+  transform: rotate(-0.9deg);
+}
+
+p,
+li,
+span {
+  text-underline-offset: 4px;
+}
+
+.doodle-stage > *:nth-child(odd) {
+  transform: rotate(-0.3deg);
+}
+
+.doodle-stage > *:nth-child(even) {
+  transform: rotate(0.38deg);
+}
+
+.doodle-stage > *:nth-child(3n) {
+  transform: rotate(-0.12deg) translateX(3px);
+}
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+}
+
+input,
+select,
+textarea {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+img,
+video {
+  filter: saturate(1.18) contrast(1.12);
+}
+
+video.pixel-border,
+img.border-4.border-black {
+  --doodle-fill: #ffffff;
+  border: var(--doodle-border-width) solid var(--scribble-ink);
+  background-image: none;
+}
+
+details {
+  clip-path: polygon(0 0, 99% 3%, 100% 98%, 1% 100%);
+}
+
+.pixel-border.bg-puppet-blue,
+.pixel-border.bg-puppet-blue-light {
+  --doodle-fill: var(--color-puppet-blue-light);
+}
+
+.pixel-border.bg-puppet-green {
+  --doodle-fill: var(--win-green);
+}
+
+.pixel-border.bg-puppet-pink {
+  --doodle-fill: var(--win-pink);
+}
+
+.pixel-border.bg-puppet-purple {
+  --doodle-fill: var(--win-purple);
+}
+
+.pixel-border.bg-puppet-yellow {
+  --doodle-fill: var(--win-yellow);
+}
+
+.pixel-border.bg-black {
+  --doodle-fill: #000000;
+}
+
+.pixel-border[class*="bg-white"] {
+  --doodle-fill: rgb(255 255 255 / 0.92);
+}
+
+.doodle-home {
+  min-height: 100vh;
+  overflow-x: auto;
+  background: #fff;
+  color: #090909;
+  font-family: var(--font-comic);
+}
+
+.doodle-home::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 12% 10%, rgb(0 0 0 / 0.04) 0 1px, transparent 2px),
+    radial-gradient(
+      circle at 62% 28%,
+      rgb(0 0 0 / 0.035) 0 1px,
+      transparent 2px
+    ),
+    radial-gradient(circle at 83% 71%, rgb(0 0 0 / 0.03) 0 1px, transparent 2px);
+  z-index: 2;
+}
+
+.doodle-ticker {
+  --doodle-fill: var(--win-blue);
+  --doodle-border-width: 4px;
+  --doodle-shape: shape(
+    from 0.3% 4%,
+    line to 9% 1%,
+    line to 19% 5%,
+    line to 33% 2%,
+    line to 48% 6%,
+    line to 63% 1%,
+    line to 80% 5%,
+    line to 99.6% 2%,
+    line to 99% 92%,
+    line to 86% 96%,
+    line to 69% 91%,
+    line to 53% 96%,
+    line to 34% 92%,
+    line to 18% 97%,
+    line to 0.5% 93%,
+    close
+  );
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  min-width: 1180px;
+  padding: 9px 36px 11px;
+  border: var(--doodle-border-width) solid var(--scribble-ink);
+  /* biome-ignore lint/correctness/noUnknownProperty: border-shape is a supported experimental CSS API in the target browser. */
+  border-shape: var(--doodle-shape);
+  background-color: var(--doodle-fill);
+  background-image: none;
+  clip-path: var(--doodle-shape);
+  image-rendering: pixelated;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+  text-shadow: 1px 1px #00366e;
+  text-transform: uppercase;
+}
+
+.doodle-stage {
+  position: relative;
+  display: flex;
+  width: min(100%, 1180px);
+  margin: 0 auto;
+  padding: 32px 18px 42px;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.doodle-panel {
+  --doodle-fill: rgb(255 255 255 / 0.93);
+  --doodle-border-width: 4px;
+  --doodle-shape: shape(
+    from 1.4% 2.2%,
+    line to 16% 0.8%,
+    line to 32% 1.9%,
+    line to 51% 1%,
+    line to 68% 2.8%,
+    line to 98.1% 1.2%,
+    line to 97.6% 23%,
+    line to 98.9% 44%,
+    line to 97.4% 72%,
+    line to 98.5% 97.6%,
+    line to 83% 98.4%,
+    line to 64% 96.8%,
+    line to 47% 98.8%,
+    line to 27% 97.1%,
+    line to 1.1% 98.6%,
+    line to 2.3% 73%,
+    line to 1% 48%,
+    line to 2.6% 22%,
+    close
+  );
+  position: relative;
+  border: var(--doodle-border-width) solid var(--scribble-ink);
+  /* biome-ignore lint/correctness/noUnknownProperty: border-shape is a supported experimental CSS API in the target browser. */
+  border-shape: var(--doodle-shape);
+  background-color: var(--doodle-fill);
+  background-image: none;
+  clip-path: var(--doodle-shape);
+  image-rendering: pixelated;
+}
+
+.doodle-panel-hero {
+  --doodle-shape: shape(
+    from 0.8% 3.1%,
+    line to 14% 1.2%,
+    line to 30% 2.2%,
+    line to 50% 0.9%,
+    line to 70% 2.7%,
+    line to 98.6% 1%,
+    line to 97.4% 31%,
+    line to 99% 66%,
+    line to 98.1% 97.3%,
+    line to 77% 98.6%,
+    line to 58% 96.9%,
+    line to 38% 99%,
+    line to 19% 97.5%,
+    line to 1.2% 98.2%,
+    line to 2.8% 70%,
+    line to 1.2% 43%,
+    close
+  );
+}
+
+.doodle-panel-media {
+  --doodle-shape: shape(
+    from 1% 1.7%,
+    line to 24% 2.9%,
+    line to 46% 1.3%,
+    line to 70% 3%,
+    line to 99% 1.1%,
+    line to 98% 35%,
+    line to 99% 66%,
+    line to 97.8% 98.4%,
+    line to 69% 97%,
+    line to 42% 99%,
+    line to 17% 96.8%,
+    line to 0.9% 98.1%,
+    line to 2.5% 58%,
+    close
+  );
+}
+
+.doodle-titlebar {
+  --doodle-fill: var(--win-blue);
+  --doodle-border-width: 3px;
+  --doodle-shape: shape(
+    from 0.8% 10%,
+    line to 18% 4%,
+    line to 33% 8%,
+    line to 49% 3%,
+    line to 68% 7%,
+    line to 98.8% 5%,
+    line to 97.5% 91%,
+    line to 80% 95%,
+    line to 60% 89%,
+    line to 39% 94%,
+    line to 18% 89%,
+    line to 1% 95%,
+    close
+  );
+  display: flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 7px 16px 9px;
+  border: var(--doodle-border-width) solid var(--scribble-ink);
+  /* biome-ignore lint/correctness/noUnknownProperty: border-shape is a supported experimental CSS API in the target browser. */
+  border-shape: var(--doodle-shape);
+  background-color: var(--doodle-fill);
+  background-image: none;
+  clip-path: var(--doodle-shape);
+  image-rendering: pixelated;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1;
+  text-shadow: 1px 1px #00366e;
+  text-transform: uppercase;
+}
+
+.doodle-heading {
+  max-width: 630px;
+  margin: 16px 0 8px;
+  color: #050505;
+  font-size: 43px;
+  font-weight: 500;
+  line-height: 0.98;
+  text-transform: uppercase;
+  transform: rotate(-1deg);
+}
+
+.doodle-bj {
+  display: inline-block;
+  margin-right: 10px;
+  font-weight: 900;
+  letter-spacing: -0.08em;
+  text-shadow: none;
+}
+
+.doodle-bj-b {
+  color: #ff1493;
+}
+
+.doodle-bj-j {
+  color: #ffd400;
+  font-weight: 900;
+}
+
+.doodle-copy {
+  max-width: 590px;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.32;
+  transform: rotate(-0.7deg);
+}
+
+.doodle-actions {
+  position: relative;
+  z-index: 80;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  margin-top: 18px;
+}
+
+.doodle-button {
+  --doodle-fill: #ffffff;
+  --doodle-border-width: 3px;
+  --doodle-shape: shape(
+    from 2% 10%,
+    line to 18% 3%,
+    line to 44% 7%,
+    line to 69% 2%,
+    line to 98% 6%,
+    line to 96% 48%,
+    line to 99% 94%,
+    line to 70% 97%,
+    line to 41% 94%,
+    line to 3% 98%,
+    line to 5% 56%,
+    close
+  );
+  position: relative;
+  z-index: 80;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 112px;
+  min-height: 43px;
+  padding: 8px 17px 10px;
+  border: var(--doodle-border-width) solid var(--scribble-ink);
+  /* biome-ignore lint/correctness/noUnknownProperty: border-shape is a supported experimental CSS API in the target browser. */
+  border-shape: var(--doodle-shape);
+  background-color: var(--doodle-fill);
+  background-image: none;
+  clip-path: var(--doodle-shape);
+  image-rendering: pixelated;
+  color: #070707;
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  transform: rotate(-1deg);
+  transition:
+    filter 120ms ease,
+    transform 120ms ease;
+}
+
+.doodle-button:nth-child(2n) {
+  transform: rotate(0.8deg);
+}
+
+.doodle-button:hover,
+.doodle-button:focus-visible {
+  filter: brightness(1.1) contrast(1.18) saturate(1.15);
+  outline: 3px dashed #000;
+  outline-offset: 3px;
+  transform: translate(-2px, -3px) rotate(-2deg);
+}
+
+.doodle-button:nth-child(2n):hover,
+.doodle-button:nth-child(2n):focus-visible {
+  transform: translate(-2px, -3px) rotate(1.8deg);
+}
+
+.doodle-button:active {
+  filter: brightness(0.95) contrast(1.25);
+  outline-offset: 1px;
+  transform: translate(2px, 3px) rotate(0deg);
+}
+
+.doodle-button-blue {
+  --doodle-fill: var(--color-puppet-blue-light);
+}
+
+.doodle-button-green {
+  --doodle-fill: var(--win-green);
+}
+
+.doodle-button-pink {
+  --doodle-fill: var(--win-pink);
+}
+
+.doodle-button-purple {
+  --doodle-fill: var(--win-purple);
+}
+
+.doodle-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.12fr) minmax(320px, 0.88fr);
+  gap: 28px;
+  align-items: start;
+}
+
+.doodle-hero-panel {
+  min-height: 410px;
+  padding: 42px 58px 38px;
+}
+
+.doodle-content-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+}
+
+.doodle-column {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.doodle-bulla-card {
+  min-height: 410px;
+  margin-top: 0;
+  padding: 34px 30px 28px;
+}
+
+.doodle-media-link {
+  display: block;
+  margin-top: 10px;
+  background: #fff;
+}
+
+.doodle-media-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.doodle-sticker {
+  position: absolute;
+  z-index: 65;
+  image-rendering: pixelated;
+  pointer-events: none;
+}
+
+.doodle-sticker img {
+  display: block;
+  image-rendering: pixelated;
+}
+
+.doodle-sticker-ghost {
+  top: 28px;
+  left: 28px;
+  width: 74px;
+  transform: rotate(8deg);
+}
+
+.doodle-sticker-left {
+  top: 210px;
+  left: 2px;
+  width: 76px;
+  transform: rotate(-12deg);
+}
+
+@media (max-width: 1200px) {
+  .doodle-home {
+    overflow-x: hidden;
+  }
+
+  .doodle-ticker {
+    min-width: 0;
+    overflow: hidden;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .doodle-stage {
+    width: min(100%, 760px);
+    padding: 24px 14px 32px;
+  }
+
+  .doodle-hero-grid,
+  .doodle-content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .doodle-sticker-ghost,
+  .doodle-sticker-left {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .doodle-heading {
+    font-size: 32px;
+  }
+
+  .doodle-copy {
+    font-size: 15px;
+  }
+
+  .doodle-hero-panel,
+  .doodle-bulla-card {
+    min-height: auto;
+    padding: 34px 24px 28px;
+  }
+
+  .doodle-button {
+    min-width: 0;
+    font-size: 15px;
+  }
 }

@@ -4,7 +4,7 @@ export default function LicenseSection() {
       <div className="window-titlebar mb-4 px-3 py-2 text-sm font-bold uppercase">
         Viral Public License
       </div>
-      <div className="pixel-border bg-white px-4 py-3 text-sm leading-relaxed">
+      <div className="px-4 py-3 text-sm leading-relaxed">
         <p className="font-bold uppercase">Copyleft (ɔ) All Rights Reversed</p>
         <p className="mt-3">
           This WORK is hereby relinquished of all associated ownership,
