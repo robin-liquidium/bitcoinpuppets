@@ -1,6 +1,6 @@
 # https://developers.cloudflare.com/workers/static-assets/headers
-# https://opennext.js.org/cloudflare/caching#static-assets-caching
-/_next/static/*
+# Vite emits content-hashed production assets here.
+/assets/*
   Cache-Control: public,max-age=31536000,immutable
 
 # Static Media
@@ -14,9 +14,6 @@
   Cache-Control: public,max-age=31536000,immutable
 /favicons/*
   Cache-Control: public,max-age=31536000,immutable
-/assets/*
-  Cache-Control: public,max-age=31536000,immutable
-
 # Root Assets
 /*.webp
   Cache-Control: public,max-age=31536000,immutable

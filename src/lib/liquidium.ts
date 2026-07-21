@@ -20,7 +20,10 @@ export async function fetchLiquidiumActiveLoans(): Promise<LiquidiumLoan[]> {
           headers: {
             Referer: "https://app.liquidium.wtf/borrow/ordinals",
           },
-          next: { revalidate: 600 },
+          cf: {
+            cacheEverything: true,
+            cacheTtl: 600,
+          },
         }).then(async (res) => {
           if (!res.ok) {
             let bodyText = "";
