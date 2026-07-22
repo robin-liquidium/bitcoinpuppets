@@ -1,4 +1,4 @@
-import { ARROW_CURVE, Doodle } from "../../MarginDoodles";
+import { ARROW_CURVE, Doodle } from "@/components/MarginDoodles";
 import { faq } from "../data";
 
 export default function FaqSection() {

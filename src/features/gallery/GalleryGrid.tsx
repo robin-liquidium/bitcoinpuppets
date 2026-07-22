@@ -4,6 +4,7 @@ import type { OrdinalToken } from "@/lib/ordinals";
 type GalleryGridProps = {
   tokens: OrdinalToken[];
   collectionLabel: string;
+  listingDataAvailable: boolean;
 };
 
 function formatNumber(value?: number) {
@@ -22,6 +23,7 @@ function isImage(contentType: string) {
 export default function GalleryGrid({
   tokens,
   collectionLabel,
+  listingDataAvailable,
 }: GalleryGridProps) {
   const [selected, setSelected] = useState<OrdinalToken | null>(null);
 
@@ -81,14 +83,16 @@ export default function GalleryGrid({
                 <span className="font-bold text-puppet-purple">
                   {formatNumber(token.listedPrice)} sats
                 </span>
-              ) : (
+              ) : listingDataAvailable ? (
                 <span className="text-gray-600">Not listed</span>
+              ) : (
+                <span className="text-gray-600">Listing data unavailable</span>
               )}
             </div>
           </button>
         );
       }),
-    [tokens],
+    [listingDataAvailable, tokens],
   );
 
   return (

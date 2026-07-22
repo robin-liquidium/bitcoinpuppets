@@ -23,7 +23,7 @@ const PAGE_TIMEOUT_MS = 5_000;
 const FRESH_FETCH_TIMEOUT_MS = 15_000;
 
 const cache = new Map<string, { data: OrdNetListings; expiresAt: number }>();
-const failureCache = new Map<string, { error: unknown; expiresAt: number }>();
+const failureCache = new Map<string, { error: Error; expiresAt: number }>();
 const inFlight = new Map<string, Promise<OrdNetListings>>();
 
 async function fetchOrdNetListingsFresh(slug: string): Promise<OrdNetListings> {
@@ -31,6 +31,7 @@ async function fetchOrdNetListingsFresh(slug: string): Promise<OrdNetListings> {
   const seenCursors = new Set<string>();
   const freshFetchSignal = AbortSignal.timeout(FRESH_FETCH_TIMEOUT_MS);
   let cursor: string | undefined;
+  let paginationComplete = false;
 
   for (let page = 0; page < MAX_PAGES; page += 1) {
     const url = new URL(`https://ord.net/api/collections/${slug}/items`);
@@ -66,15 +67,20 @@ async function fetchOrdNetListingsFresh(slug: string): Promise<OrdNetListings> {
     }
 
     const nextCursor = data.pagination?.nextCursor;
-    if (
-      !data.pagination?.hasNext ||
-      !nextCursor ||
-      seenCursors.has(nextCursor)
-    ) {
+    if (!data.pagination?.hasNext) {
+      paginationComplete = true;
       break;
+    }
+    if (!nextCursor) throw new Error("ord.net pagination cursor missing");
+    if (seenCursors.has(nextCursor)) {
+      throw new Error("ord.net pagination cursor repeated");
     }
     seenCursors.add(nextCursor);
     cursor = nextCursor;
+  }
+
+  if (!paginationComplete) {
+    throw new Error("ord.net pagination exceeded maximum pages");
   }
 
   const floorSats = prices.size ? Math.min(...prices.values()) : null;
@@ -104,11 +110,13 @@ export async function fetchOrdNetListings(
       return data;
     })
     .catch((error: unknown) => {
+      const normalizedError =
+        error instanceof Error ? error : new Error("ord.net request failed");
       failureCache.set(slug, {
-        error,
+        error: normalizedError,
         expiresAt: Date.now() + FAILURE_CACHE_TTL_MS,
       });
-      throw error;
+      throw normalizedError;
     })
     .finally(() => {
       inFlight.delete(slug);

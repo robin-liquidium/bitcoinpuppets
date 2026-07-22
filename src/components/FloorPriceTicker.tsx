@@ -12,30 +12,43 @@ export default function FloorPriceTicker() {
   useEffect(() => {
     let cancelled = false;
     let requestId = 0;
-    const load = () => {
+    let activeController: AbortController | null = null;
+    const load = async () => {
+      activeController?.abort();
+      const controller = new AbortController();
+      activeController = controller;
       const currentRequestId = ++requestId;
-      fetch("/api/floor-price")
-        .then((res) => (res.ok ? res.json() : null))
-        .then((data) => {
-          const floorData = data as FloorPrice | null;
-          if (!cancelled && currentRequestId === requestId) {
-            setFloor(
-              floorData && typeof floorData.floorSats === "number"
-                ? floorData
-                : null,
-            );
-          }
-        })
-        .catch(() => {
-          if (!cancelled && currentRequestId === requestId) {
-            setFloor(null);
-          }
+      try {
+        const response = await fetch("/api/floor-price", {
+          signal: controller.signal,
         });
+        if (!response.ok) {
+          throw new Error(`Floor price request failed with ${response.status}`);
+        }
+        const data = await response.json();
+        const floorData = data as FloorPrice | null;
+        if (!cancelled && currentRequestId === requestId) {
+          setFloor(
+            floorData && typeof floorData.floorSats === "number"
+              ? floorData
+              : null,
+          );
+        }
+      } catch (error) {
+        if (error instanceof Error && error.name === "AbortError") return;
+        console.warn("Failed to refresh floor price ticker", error);
+        if (!cancelled && currentRequestId === requestId) {
+          setFloor(null);
+        }
+      } finally {
+        if (activeController === controller) activeController = null;
+      }
     };
     load();
     const interval = window.setInterval(load, 120_000);
     return () => {
       cancelled = true;
+      activeController?.abort();
       window.clearInterval(interval);
     };
   }, []);

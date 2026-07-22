@@ -152,6 +152,7 @@ export async function getGalleryData(searchParams: GallerySearch | undefined) {
           tokens: [],
           loans,
           floorPrice: listings?.floorSats ?? null,
+          listingDataAvailable: listings !== null,
           collection,
           activeCollection,
           sortBy,
@@ -292,5 +293,6 @@ export async function getGalleryData(searchParams: GallerySearch | undefined) {
     errorMessage,
     hasSearchMatch,
     floorPrice: ordNetListings?.floorSats ?? null,
+    listingDataAvailable: ordNetListings !== null,
   };
 }

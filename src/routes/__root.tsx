@@ -38,6 +38,16 @@ export const Route = createRootRoute({
       { name: "robots", content: "index, follow" },
     ],
     links: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      {
+        rel: "preconnect",
+        href: "https://fonts.gstatic.com",
+        crossOrigin: "anonymous",
+      },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Permanent+Marker&display=swap",
+      },
       { rel: "manifest", href: "/favicons/site.webmanifest" },
       {
         rel: "icon",

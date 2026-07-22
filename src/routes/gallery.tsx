@@ -84,6 +84,7 @@ function GalleryPage() {
     hasSearchMatch,
     filters: { collection, requestedSort, query },
     floorPrice,
+    listingDataAvailable,
   } = data;
   const isLiquidiumCollection = collection === "liquidium";
 
@@ -166,6 +167,7 @@ function GalleryPage() {
             <GalleryGrid
               tokens={tokens}
               collectionLabel={activeCollection?.label ?? "Gallery"}
+              listingDataAvailable={listingDataAvailable}
             />
           ) : (
             <div className="pixel-border bg-white px-4 py-3 text-sm">

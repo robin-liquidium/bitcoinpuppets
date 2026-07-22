@@ -1,5 +1,6 @@
+import { Doodle, SCRIBBLE_CIRCLE } from "@/components/MarginDoodles";
+
 import FunnyMediaGallery from "../../FunnyMediaGallery";
-import { Doodle, SCRIBBLE_CIRCLE } from "../../MarginDoodles";
 import { funnyMedia } from "../data";
 
 export default function FunnyMediaSection() {

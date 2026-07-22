@@ -1,6 +1,9 @@
-import { useEffect, useRef } from "react";
+import { type RefObject, useEffect, useRef } from "react";
 
-export const useWindowDrag = <T extends HTMLElement>() => {
+export const useWindowDrag = <T extends HTMLElement>(): {
+  cardRef: RefObject<T | null>;
+  handleRef: RefObject<T | null>;
+} => {
   const cardRef = useRef<T | null>(null);
   const handleRef = useRef<T | null>(null);
 
@@ -10,6 +13,7 @@ export const useWindowDrag = <T extends HTMLElement>() => {
     if (!card || !handle) return;
 
     let dragging = false;
+    let activePointerId: number | null = null;
     let startX = 0;
     let startY = 0;
     let baseLeft = 0;
@@ -20,7 +24,7 @@ export const useWindowDrag = <T extends HTMLElement>() => {
     let nextY = 0;
 
     const onMove = (event: PointerEvent) => {
-      if (!dragging) return;
+      if (!dragging || event.pointerId !== activePointerId) return;
       const vw = document.documentElement.clientWidth;
       const docH = Math.max(
         document.body.scrollHeight,
@@ -40,9 +44,10 @@ export const useWindowDrag = <T extends HTMLElement>() => {
       card.style.translate = `${nextX}px ${nextY}px`;
     };
 
-    const onUp = () => {
-      if (!dragging) return;
+    const onUp = (event: PointerEvent) => {
+      if (!dragging || event.pointerId !== activePointerId) return;
       dragging = false;
+      activePointerId = null;
       curX = nextX;
       curY = nextY;
       card.style.zIndex = "";
@@ -50,8 +55,9 @@ export const useWindowDrag = <T extends HTMLElement>() => {
     };
 
     const onDown = (event: PointerEvent) => {
-      if (!event.isPrimary || event.button !== 0) return;
+      if (dragging || !event.isPrimary || event.button !== 0) return;
       dragging = true;
+      activePointerId = event.pointerId;
       startX = event.pageX;
       startY = event.pageY;
       nextX = curX;
@@ -83,6 +89,7 @@ export const useWindowDrag = <T extends HTMLElement>() => {
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerup", onUp);
       window.removeEventListener("pointercancel", onUp);
+      activePointerId = null;
       document.body.style.userSelect = "";
     };
   }, []);
