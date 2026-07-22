@@ -1,10 +1,10 @@
 export default function NoCollabSection() {
   return (
-    <section className="pixel-border bg-white/95 p-6 text-black">
-      <div className="window-titlebar mb-4 px-3 py-2 text-sm font-bold uppercase">
+    <section className="pixel-border rotate-[-0.7deg] bg-white/95 p-6 text-black">
+      <div className="window-titlebar mb-4 inline-block px-4 py-2">
         No-Collab Thesis
       </div>
-      <div className="pixel-border bg-white px-4 py-3 text-sm leading-relaxed">
+      <div className="pixel-border-alt bg-note-yellow/80 px-4 py-3 text-sm leading-relaxed">
         <p>
           Art in its purest form is a manifestation of individuality. The
           no-collab thesis asserts that the very essence of Bitcoin

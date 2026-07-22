@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import ClientOnlyStickers from "@/components/ClientOnlyStickers";
+import FloorPriceTicker from "@/components/FloorPriceTicker";
 import {
   CommunityChecklist,
   CursedInscriptionsSection,
@@ -30,12 +31,15 @@ export const Route = createFileRoute("/")({
 
 function HomePage() {
   return (
-    <div className="min-h-screen pb-20">
-      <div className="window-titlebar marquee border-b-4 border-black">
-        <span className="text-sm md:text-base font-bold tracking-wide">
-          bj bj bj ✦ WORLD PEACE ONLY ✦ FREE MINT ✦ COMMUNITY-LED ✦ CHAOTIC
-          PIXEL ENERGY ✦ WHERE ART TRANSCENDS LIMITS ✦ bj bj bj
-        </span>
+    <div className="min-h-screen pb-20 relative">
+      <div className="marquee-strip relative">
+        <FloorPriceTicker />
+        <div className="marquee marquee-inner px-2 py-1.5">
+          <span className="text-sm md:text-base tracking-wide">
+            bj bj bj ✦ WORLD PEACE ONLY ✦ FREE MINT ✦ COMMUNITY-LED ✦ CHAOTIC
+            PIXEL ENERGY ✦ WHERE ART TRANSCENDS LIMITS ✦ bj bj bj
+          </span>
+        </div>
       </div>
 
       <main className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-4 pt-10 sm:px-6 relative">
@@ -46,7 +50,7 @@ function HomePage() {
           height={96}
           loading="eager"
           fetchPriority="high"
-          className="pointer-events-none absolute -left-2 top-4 h-24 w-auto rotate-[-8deg] z-[60]"
+          className="pointer-events-none absolute -left-2 top-4 h-24 w-auto rotate-[-14deg] z-[60] animate-wiggle"
         />
         <HeroSection />
         <ClientOnlyStickers />

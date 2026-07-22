@@ -19,20 +19,26 @@ export const Route = createFileRoute("/santa-generator")({
 function SantaGeneratorPage() {
   return (
     <div className="min-h-screen pb-16">
-      <div className="window-titlebar marquee border-b-4 border-black">
-        <span className="text-sm md:text-base font-bold tracking-wide">
-          bj bj bj ✦ santa hat generator ✦ keep it square ✦ world peace ✦ bj bj
-          bj
-        </span>
+      <div className="marquee-strip">
+        <div className="marquee marquee-inner px-2 py-1.5">
+          <span className="text-sm md:text-base tracking-wide">
+            bj bj bj ✦ santa hat generator ✦ keep it square ✦ world peace ✦ bj
+            bj bj
+          </span>
+        </div>
       </div>
 
       <main className="mx-auto flex w-full max-w-5xl flex-col gap-8 px-4 pt-10 sm:px-6">
-        <section className="pixel-border bg-white/90 p-6 text-black">
-          <div className="window-titlebar mb-4 flex items-center justify-between px-3 py-2">
-            <span className="text-sm font-bold uppercase">Santa Mode</span>
+        <section className="pixel-border taped rotate-[-0.6deg] bg-note-pink/95 p-6 text-black">
+          <div className="window-titlebar mb-4 inline-block px-4 py-2">
+            Santa Mode
           </div>
-          <h1 className="text-3xl font-black uppercase tracking-tight md:text-4xl">
-            Bitcoin Puppet Santa Hat Generator
+          <h1 className="font-marker text-3xl tracking-tight md:text-5xl">
+            Bitcoin Puppet{" "}
+            <span className="highlighter inline-block rotate-[-1.5deg]">
+              Santa Hat
+            </span>{" "}
+            Generator
           </h1>
           <p className="mt-3 text-lg leading-relaxed">
             BJ. <br />
@@ -42,13 +48,13 @@ function SantaGeneratorPage() {
           <div className="mt-5 flex flex-wrap gap-3">
             <Link
               to="/"
-              className="pixel-border bg-puppet-blue px-3 py-2 text-sm font-bold uppercase inline-block hover:-translate-y-0.5 hover:shadow-press transition"
+              className="pixel-border rotate-[-1.5deg] bg-puppet-blue px-3 py-2 font-marker text-sm uppercase inline-block hover:-translate-y-0.5 hover:rotate-0 transition"
             >
               Back Home
             </Link>
             <Link
               to="/gallery"
-              className="pixel-border bg-puppet-pink px-3 py-2 text-sm font-bold uppercase inline-block hover:-translate-y-0.5 hover:shadow-press transition"
+              className="pixel-border-alt rotate-[1.2deg] bg-puppet-pink px-3 py-2 font-marker text-sm uppercase inline-block hover:-translate-y-0.5 hover:rotate-0 transition"
             >
               Gallery
             </Link>
@@ -58,11 +64,11 @@ function SantaGeneratorPage() {
         <section className="grid gap-6 lg:grid-cols-[1.1fr_0.9fr]">
           <SantaGeneratorForm />
 
-          <aside className="pixel-border bg-white/90 p-5 text-black">
-            <div className="window-titlebar mb-4 flex items-center justify-between px-3 py-2">
-              <span className="text-sm font-bold uppercase">Hat Reference</span>
+          <aside className="pixel-border-alt taped taped-corner rotate-[1.4deg] bg-note-yellow/95 p-5 text-black">
+            <div className="window-titlebar mb-4 inline-block px-4 py-2">
+              Hat Reference
             </div>
-            <div className="bg-black p-3 border-4 border-black">
+            <div className="bg-black p-3 pixel-border rotate-[-0.8deg]">
               <img
                 src="/assets/puppets-santa-hat.webp"
                 alt="Bitcoin Puppets Santa hat reference"

@@ -1,39 +1,52 @@
-@config "../../tailwind.config.ts";
 @import "tailwindcss";
+@config "../../tailwind.config.ts";
 
 :root {
-  --background: #f7f0d2;
+  --background: #f3e9d0;
   --foreground: #1a1a1a;
-  --win-blue: #0b5fa5;
-  --win-yellow: #f9d64a;
+  --ink: #17130e;
+  --paper: #fffdf4;
   --win-pink: #ff6bd6;
-  --win-green: #8cff66;
-  --win-purple: #6b5cff;
-  --win-gray: #c9c9c9;
-  --win-shadow: #222222;
+  --win-shadow: #17130e;
+  --hl-yellow: #ffe45e;
+  --hl-pink: #ff9ad5;
+  --hl-orange: #ffb26b;
+  --note-yellow: #fff6c8;
+  --note-pink: #ffe3f1;
+  --note-green: #e8ffd9;
+  --note-blue: #e0f3ff;
   --font-comic:
     "Comic Sans MS", "Comic Sans", "Comic Neue", "Chalkboard SE", "Marker Felt",
     "Trebuchet MS", sans-serif;
+  --font-marker:
+    "Permanent Marker", "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
+  --font-hand:
+    "Gochi Hand", "Segoe Print", "Bradley Hand", "Comic Sans MS", cursive;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-comic: var(--font-comic);
+  --font-marker: var(--font-marker);
+  --font-hand: var(--font-hand);
   --color-puppet-blue-light: #8fd6ff;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #111018;
-    --foreground: #f9f4e7;
-  }
+  --color-note-yellow: var(--note-yellow);
+  --color-note-pink: var(--note-pink);
+  --color-note-green: var(--note-green);
+  --color-note-blue: var(--note-blue);
+  --color-hl-yellow: var(--hl-yellow);
+  --color-hl-pink: var(--hl-pink);
+  --color-hl-orange: var(--hl-orange);
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-comic);
+  font-family: var(--font-hand);
+  font-size: 1.15rem;
   position: relative;
   z-index: 0;
   -webkit-font-smoothing: none;
@@ -93,11 +106,9 @@ body {
   min-height: 100%;
 }
 
-@media (max-width: 768px) {
-  html,
-  body {
-    overflow-x: hidden;
-  }
+html,
+body {
+  overflow-x: hidden;
 }
 
 *,
@@ -112,18 +123,56 @@ summary {
 }
 
 ::selection {
-  background: var(--win-pink);
+  background: var(--hl-pink);
   color: #000;
 }
 
 .pixel-border {
-  box-shadow: 3px 3px 0 var(--win-shadow);
-  border: 3px solid #000;
+  border: 3px solid var(--ink);
+  border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+  box-shadow: 4px 5px 0 rgba(23, 19, 14, 0.9);
+}
+
+.pixel-border-alt {
+  border: 3px solid var(--ink);
+  border-radius: 15px 255px 15px 225px / 225px 15px 255px 15px;
+  box-shadow: -4px 5px 0 rgba(23, 19, 14, 0.9);
+}
+
+.pixel-border-dash {
+  border: 3px dashed var(--ink);
+  border-radius: 125px 20px 155px 20px / 20px 155px 20px 125px;
+  box-shadow: 3px 4px 0 rgba(23, 19, 14, 0.55);
 }
 
 .window-titlebar {
-  background: linear-gradient(90deg, var(--win-blue), #1a88e6);
-  color: #fff;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-marker);
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 12px 4px 14px 5px / 5px 14px 4px 12px;
+  transform: rotate(-0.4deg);
+  box-shadow: 2px 3px 0 rgba(23, 19, 14, 0.35);
+}
+
+.marquee-strip {
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--ink) 0 28px,
+    var(--hl-yellow) 28px 56px
+  );
+  border-bottom: 4px solid var(--ink);
+  padding: 6px 0;
+}
+
+.marquee-strip > .marquee-inner {
+  background: var(--ink);
+  color: var(--hl-yellow);
+  font-family: var(--font-marker);
+  letter-spacing: 0.08em;
+  transform: rotate(-0.3deg);
 }
 
 .marquee {
@@ -172,6 +221,122 @@ summary {
   100% {
     background-position: 200% 50%;
   }
+}
+
+.highlighter {
+  background: linear-gradient(
+    100deg,
+    transparent 1%,
+    var(--hl-yellow) 4%,
+    var(--hl-yellow) 96%,
+    transparent 99%
+  );
+  padding: 0 0.3em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.highlighter-pink {
+  background: linear-gradient(
+    95deg,
+    transparent 1%,
+    var(--hl-pink) 4%,
+    var(--hl-pink) 96%,
+    transparent 99%
+  );
+  padding: 0 0.3em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.scribble {
+  text-decoration-line: underline;
+  text-decoration-style: wavy;
+  text-decoration-color: var(--win-pink);
+  text-decoration-thickness: 3px;
+  text-underline-offset: 6px;
+}
+
+.taped {
+  position: relative;
+}
+
+.taped::before {
+  content: "";
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  width: 110px;
+  height: 28px;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0.25) 0 6px,
+      transparent 6px 12px
+    ),
+    rgba(255, 228, 94, 0.75);
+  border-left: 2px dashed rgba(23, 19, 14, 0.35);
+  border-right: 2px dashed rgba(23, 19, 14, 0.35);
+  pointer-events: none;
+  transform: translateX(-50%) rotate(-2.5deg);
+  box-shadow: 0 2px 3px rgba(23, 19, 14, 0.25);
+  z-index: 5;
+}
+
+.taped-corner::before {
+  left: 18px;
+  transform: rotate(-38deg);
+}
+
+.doodle-circle {
+  border: 3px solid #e0342b;
+  border-radius: 50% 46% 52% 48% / 58% 52% 48% 44%;
+  padding: 0.1em 0.5em;
+  transform: rotate(-2deg);
+  display: inline-block;
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(-2.5deg);
+  }
+  50% {
+    transform: rotate(2.5deg);
+  }
+}
+
+.animate-wiggle {
+  animation: wiggle 1.8s ease-in-out infinite;
+}
+
+@keyframes wobble-hover {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-1.6deg);
+  }
+  75% {
+    transform: rotate(1.6deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.wobble-hover:hover {
+  animation: wobble-hover 0.35s ease-in-out;
+}
+
+.drag-handle {
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
 }
 
 .content-auto {

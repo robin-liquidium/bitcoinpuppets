@@ -1,13 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
+import { formatSats } from "@/lib/format";
 import { DURATIONS, type LiquidiumLoan } from "@/lib/liquidium";
 
 interface LiquidiumGalleryProps {
   loans: LiquidiumLoan[];
   floorPrice?: number | null;
-}
-
-function formatSats(sats: number) {
-  return new Intl.NumberFormat("en-US").format(sats);
 }
 
 function formatDate(dateStr: string) {

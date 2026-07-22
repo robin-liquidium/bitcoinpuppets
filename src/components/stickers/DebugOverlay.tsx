@@ -25,43 +25,28 @@ export const DebugOverlay = ({
     }
   };
 
-  const handleCopySticker = (sticker: Sticker) => {
+  const formatSticker = (sticker: Sticker) => {
     const x = Math.round(sticker.x);
     const y = Math.round(sticker.y);
-    let text = "";
-
     if (isMobile) {
       if (x < 150) {
-        text = `{ id: "${sticker.id}", mobileLeft: ${x}, mobileY: ${y} }`;
-      } else {
-        const mobileRight = Math.round(
-          viewportWidth - containerLeft - sticker.height - sticker.x,
-        );
-        text = `{ id: "${sticker.id}", mobileRight: ${mobileRight}, mobileY: ${y} }`;
+        return `{ id: "${sticker.id}", mobileLeft: ${x}, mobileY: ${y} }`;
       }
-    } else {
-      text = `{ id: "${sticker.id}", x: ${x}, y: ${y} }`;
+      const mobileRight = Math.round(
+        viewportWidth - containerLeft - sticker.height - sticker.x,
+      );
+      return `{ id: "${sticker.id}", mobileRight: ${mobileRight}, mobileY: ${y} }`;
     }
-    copyText(text);
+    return `{ id: "${sticker.id}", x: ${x}, y: ${y} }`;
+  };
+
+  const handleCopySticker = (sticker: Sticker) => {
+    copyText(formatSticker(sticker));
   };
 
   const handleCopyAll = () => {
     const lines = stickers
-      .map((sticker) => {
-        const x = Math.round(sticker.x);
-        const y = Math.round(sticker.y);
-        if (isMobile) {
-          if (x < 150) {
-            return `\t{ id: "${sticker.id}", mobileLeft: ${x}, mobileY: ${y} },`;
-          } else {
-            const mobileRight = Math.round(
-              viewportWidth - containerLeft - sticker.height - sticker.x,
-            );
-            return `\t{ id: "${sticker.id}", mobileRight: ${mobileRight}, mobileY: ${y} },`;
-          }
-        }
-        return `\t{ id: "${sticker.id}", x: ${x}, y: ${y} },`;
-      })
+      .map((sticker) => `\t${formatSticker(sticker)},`)
       .join("\n");
     copyText(lines);
   };

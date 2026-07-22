@@ -1,11 +1,14 @@
 export default function LicenseSection() {
   return (
-    <section className="pixel-border bg-white/95 p-6 text-black">
-      <div className="window-titlebar mb-4 px-3 py-2 text-sm font-bold uppercase">
+    <section className="pixel-border-dash rotate-[0.8deg] bg-note-green/95 p-6 text-black">
+      <div className="window-titlebar mb-4 inline-block px-4 py-2">
         Viral Public License
       </div>
-      <div className="pixel-border bg-white px-4 py-3 text-sm leading-relaxed">
-        <p className="font-bold uppercase">Copyleft (ɔ) All Rights Reversed</p>
+      <div className="pixel-border bg-white px-4 py-3 text-sm leading-relaxed rotate-[-0.4deg]">
+        <p className="font-marker uppercase">
+          Copyleft (<span className="doodle-circle">ɔ</span>) All Rights
+          Reversed
+        </p>
         <p className="mt-3">
           This WORK is hereby relinquished of all associated ownership,
           attribution, and copyrights, and redistribution or use of any kind,

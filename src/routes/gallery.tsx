@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import FloorPriceTicker from "@/components/FloorPriceTicker";
 import GalleryControls from "@/features/gallery/GalleryControls";
 import GalleryGrid from "@/features/gallery/GalleryGrid";
 import GalleryPagination from "@/features/gallery/GalleryPagination";
@@ -29,7 +30,7 @@ export const Route = createFileRoute("/gallery")({
     const description = getGalleryDescription(collection);
     const hasFilters =
       collection !== "bitcoin-puppets" ||
-      loaderData?.filters.sortBy !== "inscriptionNumberDesc" ||
+      loaderData?.filters.requestedSort !== "priceAsc" ||
       Boolean(loaderData?.filters.query);
 
     return {
@@ -57,8 +58,8 @@ export const Route = createFileRoute("/gallery")({
   },
   pendingComponent: () => (
     <main className="mx-auto min-h-screen w-full max-w-6xl px-4 pt-10 sm:px-6">
-      <div className="pixel-border bg-white/95 p-6 text-sm font-bold uppercase text-black">
-        Loading puppets...
+      <div className="pixel-border taped bg-note-yellow/95 p-6 font-marker text-sm uppercase text-black">
+        Loading gallery... probably
       </div>
     </main>
   ),
@@ -81,34 +82,38 @@ function GalleryPage() {
     },
     errorMessage,
     hasSearchMatch,
-    filters: { collection, sortBy, query },
+    filters: { collection, requestedSort, query },
     floorPrice,
+    listingDataAvailable,
   } = data;
   const isLiquidiumCollection = collection === "liquidium";
 
   return (
     <div className="relative min-h-screen pb-20">
-      <div className="window-titlebar marquee border-b-4 border-black">
-        <span className="text-sm md:text-base font-bold tracking-wide">
-          {getGalleryMarquee(collection)}
-        </span>
+      <div className="marquee-strip relative">
+        <FloorPriceTicker />
+        <div className="marquee marquee-inner px-2 py-1.5">
+          <span className="text-sm md:text-base tracking-wide">
+            {getGalleryMarquee(collection)}
+          </span>
+        </div>
       </div>
 
       <main className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 pt-10 sm:px-6">
         <div className="flex items-center justify-between gap-3">
           <Link
             to="/"
-            className="pixel-border bg-white px-3 py-2 text-xs font-bold uppercase text-black hover:-translate-y-0.5 hover:shadow-press transition"
+            className="pixel-border rotate-[-1.5deg] bg-note-yellow px-3 py-2 font-marker text-xs uppercase text-black hover:-translate-y-0.5 hover:rotate-0 transition"
           >
-            Back to Home
+            ← Back to Home
           </Link>
-          <div className="pixel-border bg-black px-3 py-2 text-xs font-bold uppercase text-white">
+          <div className="pixel-border-alt rotate-[1.2deg] bg-black px-3 py-2 font-marker text-xs uppercase text-hl-yellow">
             {activeCollection?.label ?? "Gallery"}
           </div>
         </div>
 
-        <section className="pixel-border bg-white/90 p-6 text-black">
-          <div className="window-titlebar mb-4 px-3 py-2 text-sm font-bold uppercase">
+        <section className="pixel-border taped rotate-[0.5deg] bg-note-blue/95 p-6 text-black">
+          <div className="window-titlebar mb-4 inline-block px-4 py-2">
             {activeCollection?.label ?? "Gallery"} Gallery
           </div>
           <p className="text-sm leading-relaxed">
@@ -118,12 +123,12 @@ function GalleryPage() {
 
         <GalleryControls
           collection={collection}
-          sortBy={sortBy}
+          sortBy={requestedSort}
           query={query}
         />
 
-        <section className="pixel-border bg-white/95 p-6 text-black">
-          <div className="window-titlebar mb-4 flex items-center justify-between px-3 py-2 text-sm font-bold uppercase">
+        <section className="pixel-border-alt rotate-[-0.3deg] bg-white/95 p-6 text-black">
+          <div className="window-titlebar mb-4 flex items-center justify-between px-3 py-2">
             <span>Results</span>
             <span className="text-xs">
               {isLiquidiumCollection ? (
@@ -144,7 +149,7 @@ function GalleryPage() {
               </div>
               <Link
                 to="/gallery"
-                search={{ collection, sortBy }}
+                search={{ collection, sortBy: requestedSort }}
                 className="pixel-border bg-puppet-pink px-3 py-2 text-xs font-bold uppercase text-black hover:-translate-y-0.5 hover:shadow-press transition"
               >
                 Clear
@@ -162,6 +167,7 @@ function GalleryPage() {
             <GalleryGrid
               tokens={tokens}
               collectionLabel={activeCollection?.label ?? "Gallery"}
+              listingDataAvailable={listingDataAvailable}
             />
           ) : (
             <div className="pixel-border bg-white px-4 py-3 text-sm">

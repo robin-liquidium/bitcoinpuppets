@@ -26,7 +26,7 @@ export const clampStickerX = (
 export const getIsMobileViewport = () => {
   if (typeof window === "undefined") return false;
   const viewportWidth = Math.min(
-    window.innerWidth || 0, // Fallback to 0 if undefined
+    window.innerWidth || 0,
     document.documentElement.clientWidth || 0,
   );
   return viewportWidth <= STICKER_MOBILE_BREAKPOINT;
