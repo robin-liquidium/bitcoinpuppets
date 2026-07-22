@@ -111,14 +111,19 @@ function RootDocument() {
 function NotFoundPage() {
   return (
     <main className="mx-auto flex min-h-screen max-w-3xl items-center px-4">
-      <section className="pixel-border w-full bg-white/95 p-8 text-black">
-        <div className="window-titlebar mb-4 px-3 py-2 text-sm font-bold uppercase">
+      <section className="pixel-border taped rotate-[-1deg] w-full bg-note-yellow/95 p-8 text-black">
+        <div className="window-titlebar mb-4 inline-block px-4 py-2">
           404.exe
         </div>
-        <h1 className="text-4xl font-black uppercase">Puppet not found</h1>
+        <h1 className="font-marker text-4xl md:text-5xl">
+          <span className="scribble">Puppet</span> not found
+        </h1>
+        <p className="mt-3 text-sm">
+          it probably went to zero. or to world peace. hard to tell.
+        </p>
         <Link
           to="/"
-          className="pixel-border mt-6 inline-block bg-puppet-green px-4 py-2 text-sm font-bold uppercase"
+          className="pixel-border-alt mt-6 inline-block rotate-[1.5deg] bg-puppet-green px-4 py-2 font-marker text-sm uppercase hover:rotate-0 transition"
         >
           Back home
         </Link>

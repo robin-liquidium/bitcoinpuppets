@@ -14,6 +14,12 @@ export const links: LinkItem[] = [
     iconUrl: "https://unavatar.io/twitter/Satflow",
   },
   {
+    label: "ord.net Marketplace",
+    href: "https://ord.net/collection/bitcoin-puppets",
+    note: "Buy and sell puppets on ord.net.",
+    iconUrl: "https://unavatar.io/twitter/ord_net",
+  },
+  {
     label: "Community Twitter",
     href: "https://x.com/BitcoinPuppets",
     note: "Memes, updates, and raw puppet energy.",

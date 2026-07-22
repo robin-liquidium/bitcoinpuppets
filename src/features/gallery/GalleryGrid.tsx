@@ -77,12 +77,12 @@ export default function GalleryGrid({
             </div>
             <div className="mt-1 text-[11px] text-black">
               <span className="mr-2">#{token.inscriptionNumber}</span>
-              {token.listed ? (
+              {token.listed && typeof token.listedPrice === "number" ? (
                 <span className="font-bold text-puppet-purple">
                   {formatNumber(token.listedPrice)} sats
                 </span>
               ) : (
-                <span className="text-gray-600">Not listed on this site</span>
+                <span className="text-gray-600">Not listed</span>
               )}
             </div>
           </button>
@@ -148,6 +148,11 @@ export default function GalleryGrid({
               <div className="pixel-border bg-white px-3 py-2">
                 Inscription #{selected.inscriptionNumber}
               </div>
+              {selected.listed && typeof selected.listedPrice === "number" ? (
+                <div className="pixel-border bg-puppet-yellow px-3 py-2 font-bold">
+                  Listed {formatNumber(selected.listedPrice)} sats
+                </div>
+              ) : null}
               <a
                 href={`https://www.satflow.com/ordinal/${selected.id}`}
                 target="_blank"
@@ -155,6 +160,14 @@ export default function GalleryGrid({
                 className="pixel-border bg-puppet-purple px-3 py-2 text-xs font-bold uppercase text-black hover:-translate-y-0.5 hover:shadow-press transition"
               >
                 View on Satflow
+              </a>
+              <a
+                href={`https://ord.net/inscription/${selected.inscriptionNumber}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pixel-border bg-puppet-pink px-3 py-2 text-xs font-bold uppercase text-black hover:-translate-y-0.5 hover:shadow-press transition"
+              >
+                View on ord.net
               </a>
               <a
                 href={`https://ordinals.com/inscription/${selected.id}`}

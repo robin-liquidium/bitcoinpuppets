@@ -3,12 +3,12 @@ import { links } from "../data";
 
 export default function QuickLinksSection() {
   return (
-    <div className="pixel-border bg-white/90 p-6 text-black">
-      <div className="window-titlebar mb-4 px-3 py-2 text-sm font-bold uppercase">
+    <div className="pixel-border rotate-[-0.6deg] bg-white/95 p-6 text-black">
+      <div className="window-titlebar mb-4 inline-block px-4 py-2">
         Quick Links.lnk
       </div>
       <div className="grid gap-3">
-        {links.map((link) => {
+        {links.map((link, i) => {
           const isInternal = link.href.startsWith("/");
           const content = (
             <>
@@ -34,8 +34,9 @@ export default function QuickLinksSection() {
             </>
           );
 
-          const className =
-            "pixel-border bg-white px-4 py-3 text-sm font-bold uppercase text-black hover:-translate-y-0.5 hover:shadow-press transition flex items-center gap-4";
+          const className = `pixel-border-dash bg-white px-4 py-3 text-sm font-bold uppercase text-black hover:-translate-y-0.5 hover:rotate-0 transition flex items-center gap-4 ${
+            i % 2 === 0 ? "rotate-[-0.7deg]" : "rotate-[0.8deg]"
+          }`;
 
           return isInternal ? (
             <Link key={link.href} to={link.href} className={className}>

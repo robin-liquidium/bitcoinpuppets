@@ -1,11 +1,11 @@
 export default function LoreSection() {
   return (
-    <section className="pixel-border bg-white/95 p-6 text-black">
-      <div className="window-titlebar mb-4 px-3 py-2 text-sm font-bold uppercase">
-        Full Lore (Click to Expand)
+    <section className="pixel-border-alt taped rotate-[0.6deg] bg-note-yellow/95 p-6 text-black">
+      <div className="window-titlebar mb-4 inline-block px-4 py-2">
+        Full Lore (Click to Expand, if you dare)
       </div>
-      <details className="pixel-border bg-white px-4 py-3">
-        <summary className="cursor-pointer text-sm font-bold uppercase">
+      <details className="pixel-border-dash rotate-[-0.4deg] bg-white px-4 py-3">
+        <summary className="cursor-pointer font-marker text-sm uppercase">
           Read the absurd odyssey of Bitcoin Puppets + O.P.I.U.M.
         </summary>
         <div className="mt-4 grid gap-4 text-sm leading-relaxed">

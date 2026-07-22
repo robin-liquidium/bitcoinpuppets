@@ -14,6 +14,7 @@ import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as SantaGeneratorRouteImport } from './routes/santa-generator'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as ApiFloorPriceRouteImport } from './routes/api.floor-price'
 import { Route as ApiLiquidiumRouteImport } from './routes/api.liquidium'
 import { Route as ApiSantaGeneratorRouteImport } from './routes/api.santa-generator'
 
@@ -42,6 +43,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiFloorPriceRoute = ApiFloorPriceRouteImport.update({
+  id: '/api/floor-price',
+  path: '/api/floor-price',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiLiquidiumRoute = ApiLiquidiumRouteImport.update({
   id: '/api/liquidium',
   path: '/api/liquidium',
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/robots.txt': typeof RobotsDottxtRoute
   '/santa-generator': typeof SantaGeneratorRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/api/floor-price': typeof ApiFloorPriceRoute
   '/api/liquidium': typeof ApiLiquidiumRoute
   '/api/santa-generator': typeof ApiSantaGeneratorRoute
 }
@@ -68,6 +75,7 @@ export interface FileRoutesByTo {
   '/robots.txt': typeof RobotsDottxtRoute
   '/santa-generator': typeof SantaGeneratorRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/api/floor-price': typeof ApiFloorPriceRoute
   '/api/liquidium': typeof ApiLiquidiumRoute
   '/api/santa-generator': typeof ApiSantaGeneratorRoute
 }
@@ -78,6 +86,7 @@ export interface FileRoutesById {
   '/robots.txt': typeof RobotsDottxtRoute
   '/santa-generator': typeof SantaGeneratorRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/api/floor-price': typeof ApiFloorPriceRoute
   '/api/liquidium': typeof ApiLiquidiumRoute
   '/api/santa-generator': typeof ApiSantaGeneratorRoute
 }
@@ -89,6 +98,7 @@ export interface FileRouteTypes {
     | '/robots.txt'
     | '/santa-generator'
     | '/sitemap.xml'
+    | '/api/floor-price'
     | '/api/liquidium'
     | '/api/santa-generator'
   fileRoutesByTo: FileRoutesByTo
@@ -98,6 +108,7 @@ export interface FileRouteTypes {
     | '/robots.txt'
     | '/santa-generator'
     | '/sitemap.xml'
+    | '/api/floor-price'
     | '/api/liquidium'
     | '/api/santa-generator'
   id:
@@ -107,6 +118,7 @@ export interface FileRouteTypes {
     | '/robots.txt'
     | '/santa-generator'
     | '/sitemap.xml'
+    | '/api/floor-price'
     | '/api/liquidium'
     | '/api/santa-generator'
   fileRoutesById: FileRoutesById
@@ -117,6 +129,7 @@ export interface RootRouteChildren {
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SantaGeneratorRoute: typeof SantaGeneratorRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  ApiFloorPriceRoute: typeof ApiFloorPriceRoute
   ApiLiquidiumRoute: typeof ApiLiquidiumRoute
   ApiSantaGeneratorRoute: typeof ApiSantaGeneratorRoute
 }
@@ -158,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/floor-price': {
+      id: '/api/floor-price'
+      path: '/api/floor-price'
+      fullPath: '/api/floor-price'
+      preLoaderRoute: typeof ApiFloorPriceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/liquidium': {
       id: '/api/liquidium'
       path: '/api/liquidium'
@@ -181,6 +201,7 @@ const rootRouteChildren: RootRouteChildren = {
   RobotsDottxtRoute: RobotsDottxtRoute,
   SantaGeneratorRoute: SantaGeneratorRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  ApiFloorPriceRoute: ApiFloorPriceRoute,
   ApiLiquidiumRoute: ApiLiquidiumRoute,
   ApiSantaGeneratorRoute: ApiSantaGeneratorRoute,
 }

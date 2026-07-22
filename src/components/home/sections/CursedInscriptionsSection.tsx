@@ -9,8 +9,8 @@ export default function CursedInscriptionsSection() {
     : cursedInscriptions.slice(0, initialCount);
 
   return (
-    <div className="pixel-border bg-white/90 p-6 text-black">
-      <div className="window-titlebar mb-4 px-3 py-2 text-sm font-bold uppercase">
+    <div className="pixel-border-alt taped rotate-[0.9deg] bg-note-blue/95 p-6 text-black">
+      <div className="window-titlebar mb-4 inline-block px-4 py-2">
         Cursed Inscriptions.txt
       </div>
 

@@ -1,6 +1,8 @@
 import { getCollectionIndex } from "@/data/collections";
 
 export const ORDINAL_SORT_OPTIONS = [
+  { value: "priceAsc", label: "Price: low to high" },
+  { value: "priceDesc", label: "Price: high to low" },
   { value: "inscriptionNumberAsc", label: "Inscription: low to high" },
   { value: "inscriptionNumberDesc", label: "Inscription: high to low" },
   { value: "displayNameAsc", label: "Name: A to Z" },

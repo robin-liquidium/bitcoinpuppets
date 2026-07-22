@@ -8,10 +8,10 @@ const LINKS = [
     href: "https://www.satflow.com/ordinals/bitcoin-puppets",
   },
   { name: "Discord", href: "https://discord.gg/bitcoinpuppets" },
-  { name: "GitHub", href: "https://github.com/ropl-btc/bitcoinpuppets" },
+  { name: "GitHub", href: "https://github.com/robin-liquidium/bitcoinpuppets" },
   {
     name: "Feedback",
-    href: "https://github.com/ropl-btc/bitcoinpuppets/issues",
+    href: "https://github.com/robin-liquidium/bitcoinpuppets/issues",
   },
   {
     name: "Liquidium.WTF",
@@ -66,8 +66,9 @@ export default function HamburgerMenu() {
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="pixel-border bg-white p-1.5 hover:bg-gray-100 transition-colors shadow-none active:translate-y-0.5"
-        aria-label="Menu"
+        className="pixel-border rotate-[3deg] bg-note-yellow p-1.5 hover:rotate-0 transition-all active:translate-y-0.5"
+        aria-expanded={isOpen}
+        aria-label={isOpen ? "Close menu" : "Open menu"}
       >
         <div className="w-6 h-5 flex flex-col justify-between p-0.5">
           <span
@@ -83,18 +84,20 @@ export default function HamburgerMenu() {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-56 pixel-border bg-white overflow-hidden shadow-2xl animate-in fade-in slide-in-from-top-2 duration-200">
-          <div className="window-titlebar px-3 py-1.5 text-xs font-bold uppercase tracking-wider">
+        <div className="absolute right-0 mt-3 w-56 pixel-border rotate-[1deg] bg-note-yellow overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="window-titlebar m-2 px-3 py-1.5 text-xs">
             Puppet Menu
           </div>
-          <div className="flex flex-col bg-white">
-            {LINKS.map((link) => (
+          <div className="flex flex-col">
+            {LINKS.map((link, i) => (
               <a
                 key={link.href}
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex items-center justify-between px-4 py-2.5 text-sm font-bold uppercase text-black hover:bg-black hover:text-white border-b-2 border-black/10 last:border-b-0 transition-colors"
+                className={`group flex items-center justify-between px-4 py-2.5 text-sm font-bold uppercase text-black hover:bg-ink hover:text-hl-yellow transition-colors ${
+                  i % 2 === 0 ? "rotate-[-0.5deg]" : "rotate-[0.5deg]"
+                }`}
                 onClick={() => setIsOpen(false)}
               >
                 <div className="flex flex-col">

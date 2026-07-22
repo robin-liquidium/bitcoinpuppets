@@ -6,8 +6,8 @@ export default function ManifestoSection() {
       rel="noopener noreferrer"
       className="block"
     >
-      <section className="pixel-border bg-white/90 p-6 text-black hover:-translate-y-0.5 hover:shadow-press transition">
-        <div className="window-titlebar mb-4 px-3 py-2 text-sm font-bold uppercase">
+      <section className="pixel-border-alt rotate-[0.7deg] bg-note-pink/95 p-6 text-black transition hover:-translate-y-0.5 hover:rotate-0">
+        <div className="window-titlebar mb-4 inline-block px-4 py-2">
           The Puppet Manifesto.txt
         </div>
         <p className="text-base leading-relaxed">
