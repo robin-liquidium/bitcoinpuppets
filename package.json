@@ -34,32 +34,32 @@
   },
   "dependencies": {
     "@tanstack/react-router": "^1.170.18",
-    "@tanstack/react-start": "^1.168.32",
-    "react": "19.2.7",
-    "react-dom": "19.2.7"
+    "@tanstack/react-start": "^1.168.34",
+    "react": "19.2.8",
+    "react-dom": "19.2.8"
   },
   "overrides": {
     "ajv": "8.20.0",
     "esbuild": "0.28.1",
-    "fast-uri": "4.1.1",
-    "js-yaml": "5.2.1",
+    "fast-uri": "4.1.2",
+    "js-yaml": "5.2.3",
     "picomatch": "4.0.5"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.5",
-    "@cloudflare/vite-plugin": "^1.45.1",
-    "@secretlint/secretlint-rule-preset-recommend": "^13.0.2",
+    "@biomejs/biome": "^2.5.6",
+    "@cloudflare/vite-plugin": "^1.50.0",
+    "@secretlint/secretlint-rule-preset-recommend": "^13.0.4",
     "@tailwindcss/vite": "^4.3.3",
-    "@types/node": "^26.1.1",
-    "@types/react": "^19.2.17",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.3",
+    "@types/node": "^26.1.2",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@vitejs/plugin-react": "^6.0.5",
     "husky": "^9.1.7",
-    "lint-staged": "^17.1.0",
-    "secretlint": "^13.0.2",
+    "lint-staged": "^17.3.0",
+    "secretlint": "^13.0.4",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
-    "vite": "^8.1.5",
-    "wrangler": "^4.112.0"
+    "vite": "^8.2.0",
+    "wrangler": "^4.118.0"
   }
 }
