@@ -33,8 +33,8 @@
     ]
   },
   "dependencies": {
-    "@tanstack/react-router": "^1.170.29",
-    "@tanstack/react-start": "^1.168.46",
+    "@tanstack/react-router": "^1.170.31",
+    "@tanstack/react-start": "^1.168.48",
     "react": "19.2.8",
     "react-dom": "19.2.8"
   },
@@ -47,20 +47,20 @@
     "picomatch": "4.0.5"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.8",
-    "@cloudflare/vite-plugin": "^1.52.1",
+    "@biomejs/biome": "^2.5.9",
+    "@cloudflare/vite-plugin": "^1.53.1",
     "@secretlint/secretlint-rule-preset-recommend": "^13.0.4",
     "@tailwindcss/vite": "^4.3.3",
     "@types/node": "^26.2.0",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.4",
-    "@vitejs/plugin-react": "^6.0.5",
+    "@vitejs/plugin-react": "^6.1.0",
     "husky": "^9.1.7",
     "lint-staged": "^17.3.0",
     "secretlint": "^13.0.4",
     "tailwindcss": "^4.3.3",
     "typescript": "^7.0.2",
-    "vite": "^8.2.1",
-    "wrangler": "^4.123.0"
+    "vite": "^8.2.2",
+    "wrangler": "^4.125.0"
   }
 }
