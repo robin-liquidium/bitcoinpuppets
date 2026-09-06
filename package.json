@@ -41,11 +41,11 @@
   "overrides": {
     "ajv": "8.20.0",
     "browserslist": "4.28.9",
-    "esbuild": "0.28.1",
+    "esbuild": "0.28.2",
     "fast-uri": "4.1.4",
-    "js-yaml": "5.2.3",
+    "js-yaml": "5.4.1",
     "nanoid": "3.3.18",
-    "picomatch": "4.0.5"
+    "picomatch": "4.0.7"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.12",
